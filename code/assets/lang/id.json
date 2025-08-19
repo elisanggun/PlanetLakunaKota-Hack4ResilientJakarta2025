@@ -1,0 +1,57 @@
+{
+  "title": "Shape of Jakarta",
+  "subtitle": "Memahami Banjir Melalui Sejarah Morfologi",
+  "navTimeline": "Peta Linimasa",
+  "navWisdom": "Kearifan Lokal",
+  "navMemory": "Pemetaan Memori",
+  "timelineTitle": "Linimasa Naratif: Transformasi Jakarta",
+  "eraLabel": "Era:",
+  "eventsTitle": "Kejadian Penting Era Ini",
+  "wisdomTitle": "Arsip Kearifan Lokal Interaktif",
+  "memoryTitle": "Pemetaan Memori Partisipatif",
+  "footerText": "Shape of Jakarta - Membangun Pemahaman Melalui Memori Kolektif",
+
+  "era_0_name": "Kerajaan (300M)",
+  "event_0_0_desc": "Prasasti Tugu ditemukan tahun 1879, menandakan adanya sistem irigasi dan pengendalian air yang terorganisir di masa Kerajaan Tarumanegara.",
+  "event_0_1_desc": "Fatahillah merebut Sunda Kelapa dan menamainya Jayakarta. Kota pelabuhan ini berkembang di muara Sungai Ciliwung.",
+
+  "era_1_name": "Batavia (Fase Awal Kolonial) (1600-an)",
+  "event_1_0_desc": "Banjir besar pertama dicatat oleh Belanda pada tahun 1621.",
+  "event_1_1_desc": "Pola muara Kali Ciliwung diluruskan untuk pembangunan kota Batavia.",
+  "event_1_2_desc": "Letusan Gunung Salak pada 1699 menyebabkan endapan lumpur masif di sungai-sungai Batavia, mendangkalkan kanal dan memicu masalah banjir.",
+  "event_1_3_desc": "Sungai Ciliwung meluap pada 1714 setelah pembukaan lahan hutan di kawasan Puncak.",
+  "event_1_4_desc": "Pada tahun 1770, banyak warga sakit karena malaria akibat genangan air yang meluas.",
+
+  "era_2_name": "Weltevreden (Fase Akhir Kolonial) (1800-an)",
+  "event_2_0_desc": "Batavia Baru terendam satu meter air pada 1854 akibat luapan Ciliwung.",
+  "event_2_1_desc": "Hujan turun selama 40 hari berturut-turut pada 1878, menyebabkan banjir parah di seluruh Batavia dan sekitarnya (Ommelanden).",
+  "event_2_2_desc": "Kanal hulu atau Molenvliet (sekarang Jl. Hayam Wuruk & Gajah Mada) dibangun pada 1878 untuk mengendalikan aliran air.",
+  "event_2_3_desc": "Hujan lebat pada 1 Januari 1892 mencapai 286 mm, menyebabkan banjir di Weltevreden.",
+  "event_2_4_desc": "Awal tahun 1893, banjir masih menggenangi Kampung Bumiputra (seperti Kepu, Kemayoran) dan wabah penyakit kolera terjadi.",
+  "event_2_5_desc": "Banjir kedua, 15 Januari 1932, pintu air di depok mencapai 4,8 meter sehingga keesokan paginya sudah sampai di Batavia",
+
+  "era_3_name": "Awal Kemerdekaan (1940-an)",
+  "event_3_0_desc": "Banjir besar berlanjut pada 1909, mengubah daerah Waterlooplein (sekarang Lapangan Banteng) menjadi seperti danau.",
+  "event_3_1_desc": "Prof. Hendrik van Breen merancang 'Masterplan van Breen' dan membangun Kanal Banjir Barat pada 1919 untuk melindungi area elit Menteng.",
+  "event_3_2_desc": "Banjir besar pada 1932 membuktikan Kanal Banjir Barat hanya efektif selama sekitar 10 tahun, karena jangkauan banjir semakin meluas.",
+  "event_3_3_desc": "Ir. Bloomstein menggagas perlunya dua waduk besar di Sungai Citarum untuk pengairan dan pengendalian banjir di Jawa Barat.",
+
+  "era_4_name": "Orde Baru (1960-an)",
+  "event_4_0_desc": "Pemerintah mulai fokus pada perbaikan infrastruktur air, seperti perbaikan irigasi di Kalideres pada 1952.",
+  "event_4_1_desc": "Pintu air Pondok Labu diperbaiki dan jalan di Meruya diuruk pada 1953.",
+  "event_4_2_desc": "Pembersihan got di Kebon Melati dan perbaikan saluran di Kebayoran Lama dilakukan pada 1954-1956.",
+  "event_4_3_desc": "perbaikan saluran di Kebayoran lama, pembuatan saluran Simprug di Grogol Udik, perbaikan saluran di senayan, bendungan dan saluran di pondok labu",
+
+  "era_5_name": "Jakarta Modern (2024)",
+  "event_5_0_desc": "Banjir tahun 1960 dianggap membahayakan Istana Negara, sehingga pintu air Manggarai dialirkan ke kanal yang berimbas pada hanyutnya rumah warga.",
+  "event_5_1_desc": "Tim khusus penanganan banjir dibentuk oleh pemerintah pada tahun 1963.",
+  "event_5_2_desc": "Siklus banjir pada periode 1970-1985 semakin pendek dan Jakarta semakin sering dikepung air.",
+  "event_5_3_desc": "Kopro (Komando Proyek Pencegahan Banjir) dibentuk, fokus pada normalisasi sungai dan pengerukan di hilir.",
+
+  "wisdomSituTitle": "Sistem Situ",
+  "wisdomSituContent": "<p>Sistem Situ merepresentasikan kearifan manajemen air tradisional...</p>",
+  "wisdomKanalTitle": "Kanal Tradisional",
+  "wisdomKanalContent": "<p>Kanal tradisional dirancang dengan pemahaman mendalam...</p>",
+  "wisdomRumahTitle": "Arsitektur Panggung",
+  "wisdomRumahContent": "<p>Arsitektur panggung menunjukkan adaptasi yang canggih...</p>"
+}

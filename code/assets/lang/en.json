@@ -1,0 +1,55 @@
+{
+  "title": "Shape of Jakarta",
+  "subtitle": "Understanding Flooding Through Morphological History",
+  "navTimeline": "Timeline Map",
+  "navWisdom": "Local Wisdom",
+  "navMemory": "Memory Mapping",
+  "timelineTitle": "Narrative Timeline: Jakarta's Transformation",
+  "eraLabel": "Era:",
+  "eventsTitle": "Key Events of This Era",
+  "wisdomTitle": "Interactive Local Wisdom Archive",
+  "memoryTitle": "Participatory Memory Mapping",
+  "footerText": "Shape of Jakarta - Building Understanding Through Collective Memory",
+
+  "era_0_name": "Kingdom Era (300s AD)",
+  "event_0_0_desc": "The Tugu Inscription was discovered, indicating an organized irrigation and water control system during the Tarumanegara Kingdom.",
+  "event_0_1_desc": "Fatahillah conquered Sunda Kelapa and renamed it Jayakarta. The port city developed at the mouth of the Ciliwung River.",
+
+  "era_1_name": "Batavia (First Colonial Phase) (1600s)",
+  "event_1_0_desc": "The first major flood was recorded by the Dutch in 1621.",
+  "event_1_1_desc": "The Ciliwung River estuary pattern was straightened for the construction of Batavia city.",
+  "event_1_2_desc": "The eruption of Mount Salak in 1699 caused massive sediment deposits in Batavia's rivers, silting up the canals and triggering flood problems.",
+  "event_1_3_desc": "The Ciliwung River overflowed in 1714 after forest clearing in the Puncak area.",
+  "event_1_4_desc": "In 1770, many residents fell ill with malaria due to widespread stagnant water.",
+
+  "era_2_name": "Weltevreden (Late Colonial Phase) (1800s)",
+  "event_2_0_desc": "New Batavia was submerged under a meter of water in 1854 due to the Ciliwung overflowing.",
+  "event_2_1_desc": "Rain fell for 40 consecutive days in 1878, causing severe flooding throughout Batavia and its surroundings (Ommelanden).",
+  "event_2_2_desc": "The upstream canal or Molenvliet (now Jl. Hayam Wuruk & Gajah Mada) was built in 1878 to control water flow.",
+  "event_2_3_desc": "Heavy rainfall on January 1, 1892, reached 286 mm, causing floods in Weltevreden.",
+  "event_2_4_desc": "In early 1893, floods still inundated native villages (like Kepu, Kemayoran), and a cholera epidemic occurred.",
+
+  "era_3_name": "Early Independence (1940s)",
+  "event_3_0_desc": "Major floods continued in 1909, turning the Waterlooplein area (now Lapangan Banteng) into a lake-like expanse.",
+  "event_3_1_desc": "Prof. Hendrik van Breen designed the 'van Breen Masterplan' and constructed the West Flood Canal in 1919 to protect the elite Menteng area.",
+  "event_3_2_desc": "The great flood of 1932 proved that the West Flood Canal was only effective for about 10 years, as the flood's reach expanded.",
+  "event_3_3_desc": "Ir. Bloomstein proposed the need for two large reservoirs on the Citarum River for irrigation and flood control in West Java.",
+
+  "era_4_name": "New Order (1960s)",
+  "event_4_0_desc": "The government began to focus on water infrastructure improvements, such as irrigation repairs in Kalideres in 1952.",
+  "event_4_1_desc": "The Pondok Labu water gate was repaired and the road in Meruya was elevated in 1953.",
+  "event_4_2_desc": "Drainage cleaning in Kebon Melati and canal improvements in Kebayoran Lama were carried out between 1954-1956.",
+
+  "era_5_name": "Modern Jakarta (2024)",
+  "event_5_0_desc": "The 1960 flood was considered a threat to the State Palace, leading to the diversion of the Manggarai water gate, which washed away residents' homes along the canal.",
+  "event_5_1_desc": "A special flood management team was formed by the government in 1963.",
+  "event_5_2_desc": "During the 1970-1985 period, the flood cycle became shorter, and Jakarta was more frequently inundated by water.",
+  "event_5_3_desc": "Kopro (Flood Prevention Project Command) was established, focusing on river normalization and downstream dredging.",
+
+  "wisdomSituTitle": "Situ System",
+  "wisdomSituContent": "<p>The Situ system represents traditional Indonesian water management wisdom...</p>",
+  "wisdomKanalTitle": "Traditional Canal Networks",
+  "wisdomKanalContent": "<p>Traditional canal systems were designed with deep understanding...</p>",
+  "wisdomRumahTitle": "Elevated Architecture",
+  "wisdomRumahContent": "<p>Elevated architecture demonstrates sophisticated adaptation...</p>"
+}
