@@ -42,43 +42,43 @@ export const timelineEvents = {
 // Konfigurasi layer
 export const layerConfig = {
  administrasi: {
-        url: 'assets/data/adm_dki-jakart_FeaturesToJSO.geojson',
+        url: 'assets/data/adm/adm_dki-jakart_FeaturesToJSO.geojson',
         name: 'Batas Administrasi',
         style: { color: "#4ade80", weight: 1, opacity: 0.7, fillColor: "#166534", fillOpacity: 0.3 },
         highlightStyle: { weight: 4, color: '#FFFF00', fillOpacity: 0.7 }
     },
     sungai: {
-        url: 'assets/data/Sungai_Primer_FeaturesToJSON.geojson',
+        url: 'assets/data/hidrology/Sungai_Primer_FeaturesToJSON.geojson',
         name: 'Sungai Primer',
         style: { color: "#60a5fa", weight: 2, opacity: 0.9 },
         highlightStyle: { weight: 5, color: '#FFFF00', opacity: 1 }
     },
     canal1619: {
-        url: 'assets/data/1619_canal.geojson',
+        url: 'assets/data/canal/1619_canal.geojson',
         name: 'Kanal 1619',
         style: { color: "#f59e0b", weight: 1.5, opacity: 0.8 }, // Warna amber
         highlightStyle: { weight: 4, color: '#FFFF00', opacity: 1 }
     },
     canal1650: {
-        url: 'assets/data/1650_canal.geojson',
+        url: 'assets/data/canal/1650_canal.geojson',
         name: 'Kanal 1650',
         style: { color: "#fbbf24", weight: 1.5, opacity: 0.8 }, // Warna amber lebih terang
         highlightStyle: { weight: 4, color: '#FFFF00', opacity: 1 }
     },
     canal1700: {
-        url: 'assets/data/1700_canal.geojson',
+        url: 'assets/data/canal/1700_canal.geojson',
         name: 'Kanal 1700',
         style: { color: "#fcd34d", weight: 1.5, opacity: 0.8 }, // Warna amber lebih muda
         highlightStyle: { weight: 4, color: '#FFFF00', opacity: 1 }
     },
     canal1797: {
-        url: 'assets/data/1797_canal.geojson',
+        url: 'assets/data/canal/1797_canal.geojson',
         name: 'Kanal 1797',
         style: { color: "#fef08a", weight: 1.5, opacity: 0.8 }, // Warna amber paling muda
         highlightStyle: { weight: 4, color: '#FFFF00', opacity: 1 }
      },
     prasasti_tugu: {
-        url: 'assets/data/prasasti_tugu.geojson',
+        url: 'assets/data/points/prasasti_tugu.geojson',
         // Gaya untuk titik: kita akan menggunakan 'pointToLayer' untuk membuat lingkaran
         pointToLayerStyle: {
             radius: 8,

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historical Gallery - Shape of Jakarta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600&display=swap');
+
+        .story-font { font-family: 'Playfair Display', serif; }
+        .ui-font { font-family: 'Inter', sans-serif; }
+
+        .gallery-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+        .gallery-item .overlay {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+        /* Filter button styles */
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active {
+            background-color: #2563EB;
+            color: white;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.5);
+        }
+
+        /* Modal Styles */
+        .modal { display: none; }
+        .modal.open { display: flex; }
+        .modal-content { animation: fadeInScale 0.4s ease-out; }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-gray-200 ui-font">
+
+    <!-- Header -->
+    <header class="py-12 bg-gradient-to-b from-[#0f172a] to-slate-900 text-center">
+        <h1 class="story-font text-white text-5xl md:text-7xl font-bold">Galeri Arsip</h1>
+        <p class="ui-font text-slate-300 text-lg md:text-xl mt-2">Menelusuri Arsip Visual Perjalanan Air Jakarta</p>
+        <a href="index.html" class="mt-6 inline-block text-blue-400 hover:text-blue-300 transition">&larr; Kembali ke Dasbor Utama</a>
+    </header>
+
+    <!-- Filter Controls -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+        <div id="filter-container" class="flex flex-wrap justify-center gap-3">
+            <button class="filter-btn active bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 px-5 rounded-full" onclick="filterGallery('all')">Semua</button>
+            <button class="filter-btn bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 px-5 rounded-full" onclick="filterGallery('peta')">Peta</button>
+            <button class="filter-btn bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 px-5 rounded-full" onclick="filterGallery('infrastruktur')">Infrastruktur Air</button>
+            <button class="filter-btn bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 px-5 rounded-full" onclick="filterGallery('dokumen')">Dokumen & Artefak</button>
+        </div>
+    </div>
+
+    <!-- Gallery Container -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+            <!-- Item 1 -->
+            <div class="gallery-item group cursor-pointer" data-category="dokumen" onclick="openModal('https://placehold.co/800x600/1e293b/94a3b8?text=Prasasti+Tugu', 'Prasasti Tugu (Abad ke-5)', 'Prasasti ini mencatat pembangunan kanal oleh Raja Purnawarman dari Kerajaan Tarumanegara, bukti awal rekayasa air di wilayah Jakarta.')">
+                <div class="relative overflow-hidden rounded-lg">
+                    <img src="https://placehold.co/400x300/1e293b/94a3b8?text=Prasasti+Tugu" alt="Prasasti Tugu" class="w-full h-full object-cover">
+                    <div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4">
+                        <p class="text-white text-center font-semibold">Prasasti Tugu (Abad ke-5)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="gallery-item group cursor-pointer" data-category="peta" onclick="openModal('https://placehold.co/800x600/334155/64748b?text=Peta+Batavia+1650', 'Peta Batavia (c. 1650)', 'Peta ini menunjukkan tata kota Batavia yang terstruktur dengan kanal-kanal lurus khas Belanda, meniru Amsterdam. Benteng kota terlihat jelas di bagian utara.')">
+                <div class="relative overflow-hidden rounded-lg">
+                    <img src="https://placehold.co/400x300/334155/64748b?text=Peta+Batavia+1650" alt="Peta Batavia circa 1650" class="w-full h-full object-cover">
+                    <div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4">
+                        <p class="text-white text-center font-semibold">Peta Batavia (c. 1650)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="gallery-item group cursor-pointer" data-category="infrastruktur" onclick="openModal('https://placehold.co/800x600/475569/94a3b8?text=Kanal+Molenvliet', 'Kanal Molenvliet (c. 1910)', 'Kanal Molenvliet adalah salah satu kanal utama yang dibangun untuk transportasi dan menggerakkan kincir air. Foto ini menunjukkan aktivitas di sepanjang kanal pada awal abad ke-20.')">
+                <div class="relative overflow-hidden rounded-lg">
+                    <img src="https://placehold.co/400x300/475569/94a3b8?text=Kanal+Molenvliet" alt="Kanal Molenvliet" class="w-full h-full object-cover">
+                    <div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4">
+                        <p class="text-white text-center font-semibold">Kanal Molenvliet (c. 1910)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="gallery-item group cursor-pointer" data-category="infrastruktur" onclick="openModal('https://placehold.co/800x600/52525b/a1a1aa?text=Banjir+Kanal+Barat', 'Pembangunan Banjir Kanal Barat', 'Proyek Banjir Kanal Barat adalah salah satu upaya rekayasa modern terbesar untuk mengendalikan banjir Jakarta, melanjutkan dan memodifikasi rencana dari era kolonial.')">
+                <div class="relative overflow-hidden rounded-lg">
+                    <img src="https://placehold.co/400x300/52525b/a1a1aa?text=Banjir+Kanal+Barat" alt="Pembangunan Banjir Kanal Barat" class="w-full h-full object-cover">
+                    <div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4">
+                        <p class="text-white text-center font-semibold">Banjir Kanal Barat</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tambahkan lebih banyak item di sini dengan 'data-category' yang sesuai -->
+
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="imageModal" class="modal fixed inset-0 bg-black bg-opacity-80 z-50 items-center justify-center p-4">
+        <div class="modal-content bg-slate-800 rounded-lg shadow-2xl max-w-4xl w-full max-h-full overflow-auto flex flex-col md:flex-row">
+            <img id="modalImage" src="" alt="Gambar Detail" class="w-full md:w-2/3 h-auto object-contain bg-black">
+            <div class="p-6 flex flex-col">
+                <h3 id="modalTitle" class="story-font text-3xl text-blue-300 mb-2"></h3>
+                <p id="modalDescription" class="text-gray-300 leading-relaxed flex-grow"></p>
+                <button onclick="closeModal()" class="mt-4 self-start md:self-end bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-lg transition">Tutup</button>
+            </div>
+        </div>
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-4xl">&times;</button>
+    </div>
+
+    <script>
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+
+        function openModal(imageSrc, title, description) {
+            modalImage.src = imageSrc;
+            modalTitle.textContent = title;
+            modalDescription.textContent = description;
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('open');
+            document.body.style.overflow = 'auto';
+        }
+
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // --- Filter Logic ---
+        const filterContainer = document.getElementById('filter-container');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        function filterGallery(category) {
+            // Update active button
+            const buttons = filterContainer.querySelectorAll('.filter-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+                if(button.getAttribute('onclick') === `filterGallery('${category}')`) {
+                    button.classList.add('active');
+                }
+            });
+
+            // Filter items
+            galleryItems.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                if (category === 'all' || itemCategory === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
