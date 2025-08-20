@@ -28,10 +28,37 @@
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
         .scroll-arrow { animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-15px); } 60% { transform: translateY(-5px); } }
+
+        /* Gaya untuk Legenda Melayang */
+        #map-legend {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 20;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            color: #e0f2fe;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            max-width: 300px;
+        }
+        #map-legend.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .legend-item { display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .legend-line { width: 20px; height: 4px; margin-right: 10px; border-radius: 2px; }
+        .legend-point { width: 12px; height: 12px; margin-right: 10px; border-radius: 50%; box-sizing: border-box; }
     </style>
 </head>
 <body class="bg-slate-900 text-gray-200 ui-font">
     <div id="map"></div>
+    <div id="map-legend"></div>
+
     <nav id="timeline-nav" class="fixed top-1/2 right-4 md:right-8 transform -translate-y-1/2 z-20 hidden lg:block">
         <div class="flex flex-col items-center space-y-4 relative">
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-full bg-slate-700"></div>
@@ -61,18 +88,18 @@
             <div class="absolute bottom-8 text-white fade-in-up" style="animation-delay: 1s;"><svg class="w-6 h-6 scroll-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg></div>
         </section>
 
-        <section id="chapter-1" class="chapter justify-start" data-geojson-layer="tugu">
+        <section id="chapter-1" class="chapter justify-start" data-geojson-layer="tugu" data-legend-text="Lokasi Penemuan Prasasti Tugu">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
-                 <img src="code/assets/images/prasasti_tugu_500.png" alt="Prasasti Tugu" class="w-full h-48 object-cover">
+                 <img src="code/assets/images/prasasti_tugu_500.png" alt="Prasasti Tugu" class="w-full h-64 object-cover">
                 <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">Abad ke-5 M</p>
                     <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Mula Sang Delta</h2>
-                    <p class="text-base leading-relaxed">Dalam perjalanan menemui mula Jakarta, tidak akan terlepas dari bagaimana alam saling terhubung dan berdialog mesra. Kekuatan angin dan sungai memiliki peran dalam pembentukan ruang, melalui endapan yang saling terhubung, mereka menyambut kehidupan. Endapan dari sungai yang bertumpuk membentuk tanggul alami dan bebukitan, akresi-abrasi yang bersahutan membentuk rupa batasan sebuah Delta. Kejadian yang terus berulang, kadang mereka mati lalu hidup lagi. Untuk melanjutkan kehidupan, Purnawarman sang raja Tarumanegara abad ke-5 mengadakan penggalian sungai untuk kebutuhan pangan dan penambahan ruang resapan akibat aliran air yang melimpah</p>
+                    <p class="text-base leading-relaxed">Dalam perjalanan menemui mula Jakarta, tidak akan terlepas dari bagaimana alam saling terhubung. Untuk melanjutkan kehidupan, Purnawarman sang raja Tarumanegara mengadakan penggalian sungai untuk kebutuhan pangan dan penambahan ruang resapan.</p>
                 </div>
             </div>
         </section>
 
-        <section id="chapter-2" class="chapter justify-center" data-geojson-layer="canal1619">
+        <section id="chapter-2" class="chapter justify-center" data-geojson-layer="canal1619" data-legend-text="Kanal Batavia 1619">
              <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
                 <p class="font-bold text-lg text-gray-300 mb-4">1610</p>
                 <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Tamu Jauh yang Ingin Menetap</h2>
@@ -80,10 +107,10 @@
             </div>
         </section>
 
-        <section id="chapter-3" class="chapter justify-end" data-geojson-layer="canal1650">
+        <section id="chapter-3" class="chapter justify-end" data-geojson-layer="canal1650" data-legend-text="Perkembangan Kanal 1650">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
-                 <img src="code/assets/images/batavia_1682.jpeg" alt="Batavia 1682" class="w-full h-48 object-cover">
-                <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
+                 <img src="code/assets/images/batavia_1682.jpeg" alt="Batavia 1682" class="w-full h-64 object-cover">
+                <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">1620</p>
                     <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Meluruskan yang Bengkok, Tapi Kesakitan</h2>
                     <p class="text-base leading-relaxed">Sang tamu yang tadinya menginap, kini membangun tempat untuk menetap. Kiranya ia tahu bahwa tembok keras tak dapat membendung air yang tak terbatas. Meski dipaksa, suara air semakin keras, mengabaikan penghuni yang kian menekan untuk bebas.</p>
@@ -91,7 +118,7 @@
             </div>
         </section>
 
-        <section id="chapter-4" class="chapter justify-start" data-geojson-layer="canal1700">
+        <section id="chapter-4" class="chapter justify-start" data-geojson-layer="molenvliet" data-legend-text="Kanal Molenvliet">
             <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
                 <p class="font-bold text-lg text-gray-300 mb-4">1631</p>
                 <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Molenvliet, Intervensi dari Timur</h2>
@@ -101,8 +128,8 @@
 
         <section id="chapter-5" class="chapter justify-start" data-lat="-6.5975" data-lon="106.7995" data-zoom="11">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
-                 <img src="code/assets/images/perkebunan_bogor_1871.jpg" alt="bogor" class="w-full h-48 object-cover">
-                <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
+                 <img src="code/assets/images/perkebunan_bogor_1871.jpg" alt="Perkebunan di Bogor" class="w-full h-64 object-cover">
+                <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">1714</p>
                     <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Menggunduli Puncak, Karena Haus Kekuasaan</h2>
                     <p class="text-base leading-relaxed">Nafas alam mulai tercekat mengetahui penghuni tak lagi bersahabat bahkan dengan pohon yang digunduli demi ekonomi, hingga alam melepas air untuk mengalir bebas tanpa jeda, membawa cerita luka dari gunung hingga ke muara.</p>
@@ -112,8 +139,8 @@
 
         <section id="chapter-6" class="chapter justify-center" data-lat="-6.13" data-lon="106.81" data-zoom="14">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
-                 <img src="code/assets/images/malaria_batavia_1983.jpg" alt="malaria" class="w-full h-48 object-cover">
-                <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
+                 <img src="code/assets/images/malaria_batavia_1983.jpg" alt="Ilustrasi Wabah Malaria" class="w-full h-64 object-cover">
+                <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">1770</p>
                     <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Semakin Sakit</h2>
                     <p class="text-base leading-relaxed">Keterasingan dari alam membuat penghuni jadi jatuh sakit, air menggenang, kota terendam.</p>
@@ -121,10 +148,10 @@
             </div>
         </section>
 
-        <section id="chapter-7" class="chapter justify-end" data-geojson-layer="canal1797">
+        <section id="chapter-7" class="chapter justify-end" data-geojson-layer="canal1797" data-legend-text="Perkembangan Kanal 1797">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
-                 <img src="code/assets/images/weltevreden_1895.jpg" alt="welt" class="w-full h-48 object-cover">
-                <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
+                 <img src="code/assets/images/weltevreden_1895.jpg" alt="Weltevreden" class="w-full h-64 object-cover">
+                <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">1808</p>
                     <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Mencari Rumah di Tanah Asing</h2>
                     <p class="text-base leading-relaxed">Meninggalkan Batavia, si rumah lama, berpindah tak jauh membentuk Weltevreden, memberi luka baru di lokasi berbeda dan pandangan yang satu demi membangun sangkar baru.</p>
@@ -132,11 +159,10 @@
             </div>
         </section>
 
-
-        <section id="chapter-8" class="chapter justify-center" data-geojson-layer="flood1893">
+        <section id="chapter-8" class="chapter justify-center" data-geojson-layer="flood1893" data-legend-text="Area Banjir 1893">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
-                 <img src="code/assets/images/flood/batavia_flood_1898.jpg" alt="flood batavia 1898" class="w-full h-48 object-cover">
-                <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
+                 <img src="code/assets/images/flood/batavia_flood_1898.jpg" alt="Banjir Batavia 1898" class="w-full h-64 object-cover">
+                <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">1893</p>
                     <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Kebanjiran yang Berlanjut</h2>
                     <p class="text-base leading-relaxed">Ia kembali bersama wabah, sang delta dengan kawan barunya menegur teman lama supaya menoleh ke bawah. Tetapi pandangannya terlampau maju ke beda arah.</p>
@@ -144,10 +170,10 @@
             </div>
         </section>
 
-        <section id="chapter-9" class="chapter justify-end" data-geojson-layer="flood1909">
+        <section id="chapter-9" class="chapter justify-end" data-geojson-layer="flood1909" data-legend-text="Area Banjir 1909">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
-                 <img src="code/assets/images/flood/batavia_flood_1915.jpg" alt="flood batavia 1915" class="w-full h-48 object-cover">
-                <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
+                 <img src="code/assets/images/flood/batavia_flood_1915.jpg" alt="Banjir Batavia 1915" class="w-full h-64 object-cover">
+                <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">1909</p>
                     <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Penghuni Lama yang Semakin Tertindas</h2>
                     <p class="text-base leading-relaxed">Dinding kokoh membentang kuasa, menyelamatkan menara Eropa dari amarah bah. Air banjir bukan lagi bencana alam yang meruah, namun belati pemisah kasta yang terukir dalam titah.</p>
@@ -155,10 +181,10 @@
             </div>
         </section>
 
-        <section id="chapter-10" class="chapter justify-start" data-geojson-layer="flood1919">
+        <section id="chapter-10" class="chapter justify-start" data-geojson-layer="flood1919" data-legend-text="Area Banjir 1919">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
-                 <img src="code/assets/images/flood/batavia_flood_1920.jpg" alt="flood batavia 1920" class="w-full h-48 object-cover">
-                <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
+                 <img src="code/assets/images/flood/batavia_flood_1920.jpg" alt="Banjir Batavia 1920" class="w-full h-64 object-cover">
+                <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">1913-1919</p>
                     <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Rekayasa Memutus Asa & Ingatan yang Tak Lekang</h2>
                     <p class="text-base leading-relaxed">Arogansi dengan rekayasa terkini, memberikan penghuni keputusan yang tidak pasti. Dibendung, dibuang, diarahkan dan dilupakan, namun air kembali memperingati dengan mampir menggenangi.</p>
@@ -166,7 +192,7 @@
             </div>
         </section>
 
-        <section id="chapter-11" class="chapter justify-center" data-lat="-6.20" data-lon="106.79" data-zoom="14">
+        <section id="chapter-11" class="chapter justify-center" data-geojson-layer="flood1932" data-legend-text="Area Banjir 1932">
             <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
                 <p class="font-bold text-lg text-gray-300 mb-4">1930-1932</p>
                 <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Sang Delta Mulai Berpencar</h2>
@@ -201,8 +227,8 @@
         <section id="chapter-15" class="chapter justify-end" data-lat="-6.2088" data-lon="106.8456" data-zoom="12">
             <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
                 <p class="font-bold text-lg text-gray-300 mb-4">2024</p>
-                <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Jakarta Modern</h2>
-                <p class="text-base leading-relaxed">Kini, kota ini adalah rimba beton yang terus bertumbuh ke atas, sementara tanah di bawahnya perlahan tenggelam. Tembok laut raksasa dibangun sebagai pertahanan terakhir, sebuah simbol perjuangan tanpa henti melawan alam yang pernah menjadi sahabat.</p>
+                <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Masa Kini</h2>
+                <p class="text-base leading-relaxed">Mengajak berkaca pada kondisi masa kini dan melihat bagaimana respon pemerintah terkait persoalan banjir dimana saat ini yang sudah dilakukan adalah membuat masterplan pengendalian banjir, bukan masterplan resiliensi banjir.</p>
             </div>
         </section>
 
@@ -221,6 +247,7 @@
             L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' }).addTo(map);
 
             const mapElement = document.getElementById('map');
+            const legendElement = document.getElementById('map-legend');
             const timelineNav = document.getElementById('timeline-nav');
             const heroSection = document.getElementById('hero');
             const chapters = document.querySelectorAll('.chapter');
@@ -235,15 +262,12 @@
                     'tugu': 'code/assets/data/points/prasasti_tugu.geojson',
                     'canal1619': 'code/assets/data/canal/1619_canal.geojson',
                     'canal1650': 'code/assets/data/canal/1650_canal.geojson',
-                    'canal1700': 'code/assets/data/canal/1700_canal.geojson',
+                    'molenvliet': 'code/assets/data/canal/molenvliet.geojson',
                     'canal1797': 'code/assets/data/canal/1797_canal.geojson',
-                    'canal1937': 'code/assets/data/canal/1937_canal.geojson',
                     'flood1893': 'code/assets/data/flood/1893_flood.geojson',
                     'flood1909': 'code/assets/data/flood/1909_flood.geojson',
                     'flood1919': 'code/assets/data/flood/1919_flood.geojson',
-                    'flood1932': 'code/assets/data/flood/1932_flood.geojson',
-                    'flood1932b': 'code/assets/data/flood/1932_flood_buff.geojson',
-                    'molenvliet': 'code/assets/data/canal/molenvliet.geojson'
+                    'flood1932': 'code/assets/data/flood/1932_flood.geojson'
                 };
 
                 for (const key in layerConfig) {
@@ -251,21 +275,37 @@
                         const response = await fetch(layerConfig[key]);
                         if (!response.ok) throw new Error(`Gagal memuat ${layerConfig[key]}`);
                         const data = await response.json();
-                        geojsonLayers[key] = L.geoJSON(data, {
-                            style: { color: "#3B82F6", weight: 3, opacity: 0.8 }
-                        });
+                        const color = key.includes('flood') ? "#EF4444" : "#3B82F6";
+
+                        if (data.features[0].geometry.type === 'Point') {
+                             geojsonLayers[key] = L.geoJSON(data, {
+                                pointToLayer: function (feature, latlng) {
+                                    return L.circleMarker(latlng, {
+                                        radius: 8,
+                                        fillColor: color,
+                                        color: "#FFF",
+                                        weight: 2,
+                                        opacity: 1,
+                                        fillOpacity: 0.8
+                                    });
+                                }
+                            });
+                        } else {
+                            geojsonLayers[key] = L.geoJSON(data, {
+                                style: { color: color, weight: 3, opacity: 0.8 }
+                            });
+                        }
                     } catch (error) {
                         console.error(error);
                     }
                 }
             }
 
-            function updateMapLayers(chapter) {
+            function updateMapState(chapter) {
                 if (activeGeoJsonLayer) {
                     map.removeLayer(activeGeoJsonLayer);
                     activeGeoJsonLayer = null;
                 }
-
                 const geojsonKey = chapter.dataset.geojsonLayer;
                 if (geojsonKey && geojsonLayers[geojsonKey]) {
                     activeGeoJsonLayer = geojsonLayers[geojsonKey];
@@ -279,13 +319,24 @@
                         map.flyTo([lat, lon], zoom, { duration: 2, easeLinearity: 0.25 });
                     }
                 }
-            }
 
-            function updateCardImage(chapter) {
-                const imageSrc = chapter.dataset.imageSrc;
-                const imgElement = chapter.querySelector('.story-card img');
-                if (imgElement && imageSrc) {
-                    imgElement.src = imageSrc;
+                // --- LOGIKA BARU UNTUK LEGENDA DINAMIS ---
+                const legendText = chapter.dataset.legendText;
+                if (legendText && geojsonKey && geojsonLayers[geojsonKey]) {
+                    const layer = geojsonLayers[geojsonKey];
+                    let symbolHtml = '';
+                    // Cek apakah layer adalah CircleMarker (untuk titik)
+                    if (layer.getLayers && layer.getLayers()[0] instanceof L.CircleMarker) {
+                        const pointStyle = layer.getLayers()[0].options;
+                        symbolHtml = `<div class='legend-point' style='background-color: ${pointStyle.fillColor}; border: ${pointStyle.weight}px solid ${pointStyle.color};'></div>`;
+                    } else { // Asumsikan layer lain adalah garis/poligon
+                        const lineStyle = layer.options.style;
+                        symbolHtml = `<div class='legend-line' style='background-color: ${lineStyle.color};'></div>`;
+                    }
+                    legendElement.innerHTML = `<div class='legend-item'>${symbolHtml}<span>${legendText}</span></div>`;
+                    legendElement.classList.add('visible');
+                } else {
+                    legendElement.classList.remove('visible');
                 }
             }
 
@@ -295,8 +346,7 @@
                     if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
                         chapters.forEach(c => c.classList.remove('active'));
                         chapter.classList.add('active');
-                        updateMapLayers(chapter);
-                        updateCardImage(chapter);
+                        updateMapState(chapter);
                         const chapterNum = parseInt(chapter.id.replace('chapter-', ''));
                         updateTimeline(chapterNum);
                     }
@@ -308,6 +358,7 @@
                     if (entry.isIntersecting) {
                         mapElement.classList.remove('visible');
                         timelineNav.classList.remove('visible');
+                        legendElement.classList.remove('visible');
                          if (activeGeoJsonLayer) map.removeLayer(activeGeoJsonLayer);
                     } else {
                         mapElement.classList.add('visible');
