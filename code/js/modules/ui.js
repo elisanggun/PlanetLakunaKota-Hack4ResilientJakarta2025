@@ -50,6 +50,49 @@ function setupMemoryMapping() {
         communityStoryMarkers = L.layerGroup().addTo(communityMap);
     }
 
+    // === PERUBAHAN 1: Fungsi untuk membuat kartu cerita ===
+    function createStoryCard(storyData) {
+        const storiesContainer = document.getElementById('memory-stories');
+        const newStory = document.createElement('div');
+        newStory.className = 'story-card';
+        if (storyData.lat && storyData.lng) {
+            newStory.classList.add('clickable');
+            const coords = [parseFloat(storyData.lat), parseFloat(storyData.lng)];
+            newStory.dataset.location = JSON.stringify({ coords: coords, zoom: 16 });
+        }
+        newStory.innerHTML = `
+            <img src="${storyData.photo_url || 'https://placehold.co/100x100/1e293b/FFF?text=No+Image'}" alt="Foto dari ${storyData.name}">
+            <div class="story-card-content">
+                <h5>${storyData.name}</h5>
+                <div class="meta">${storyData.year}</div>
+                <p>${storyData.story}</p>
+            </div>`;
+        storiesContainer.appendChild(newStory);
+
+        if (storyData.lat && storyData.lng && communityStoryMarkers) {
+            const coords = [parseFloat(storyData.lat), parseFloat(storyData.lng)];
+            const marker = L.marker(coords).addTo(communityStoryMarkers);
+            marker.bindPopup(`<b>${storyData.name} (${storyData.year})</b><br>${storyData.story.substring(0, 50)}...`);
+        }
+    }
+
+    // === PERUBAHAN 2: Muat dan tampilkan data dari CSV ===
+    function loadInitialStories() {
+        Papa.parse('assets/stories.csv', {
+            download: true,
+            header: true,
+            complete: function(results) {
+                results.data.forEach(story => {
+                    if (story.name && story.year && story.story) { // Pastikan baris tidak kosong
+                        createStoryCard(story);
+                    }
+                });
+            }
+        });
+    }
+
+    loadInitialStories(); // Panggil fungsi untuk memuat cerita awal
+
     // Event listener untuk peta input
     if (inputMap) {
         inputMap.on('click', (e) => {
@@ -82,36 +125,22 @@ function setupMemoryMapping() {
         e.preventDefault();
 
         const storyData = {
-            id: `story-${Date.now()}`,
             name: document.getElementById('contributor-name').value,
             year: document.getElementById('flood-year').value,
             story: document.getElementById('flood-story').value,
             coords: coordsInput.value ? JSON.parse(coordsInput.value) : null,
-            photo: photoPreview.src
+            photo_url: photoPreview.src
         };
 
         if (storyData.name && storyData.year && storyData.story) {
-            const storiesContainer = document.getElementById('memory-stories');
-            const newStory = document.createElement('div');
-            newStory.className = 'story-card';
-            if (storyData.coords) {
-                newStory.classList.add('clickable');
-                newStory.dataset.location = JSON.stringify({ coords: storyData.coords, zoom: 16 });
-            }
-            newStory.innerHTML = `
-                <img src="${storyData.photo || 'https://placehold.co/100x100/1e293b/FFF?text=No+Image'}" alt="Foto dari ${storyData.name}">
-                <div class="story-card-content">
-                    <h5>${storyData.name}</h5>
-                    <div class="meta">${storyData.year}</div>
-                    <p>${storyData.story}</p>
-                </div>`;
-            storiesContainer.insertBefore(newStory, storiesContainer.firstChild);
+            // Gunakan fungsi yang sama untuk menambahkan cerita baru
+            createStoryCard({
+                ...storyData,
+                lat: storyData.coords ? storyData.coords[0] : null,
+                lng: storyData.coords ? storyData.coords[1] : null,
+            });
 
-            if (storyData.coords && communityStoryMarkers) {
-                const marker = L.marker(storyData.coords).addTo(communityStoryMarkers);
-                marker.bindPopup(`<b>${storyData.name} (${storyData.year})</b><br>${storyData.story.substring(0, 50)}...`);
-            }
-
+            // Reset formulir
             memoryForm.reset();
             photoPreview.classList.add('hidden');
             if (inputMarker) {

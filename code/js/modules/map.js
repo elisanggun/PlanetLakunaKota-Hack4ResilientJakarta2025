@@ -93,7 +93,6 @@ function updateMapLayers(timelineValue) {
     // timelineValue: 0=1500s, 1=1600s, 2=1800s, 3=1950s, 4=2024
     switch (timelineValue) {
         case 0: // Pra-Kolonial
-            if (layers.sungai) map.addLayer(layers.sungai);
             if (layers.prasasti_tugu) map.addLayer(layers.prasasti_tugu);
             break;
         case 1: // Kolonial Awal (1600-an)
