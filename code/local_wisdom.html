@@ -118,8 +118,8 @@
 
     <!-- Header yang Mengambang di Atas Peta -->
     <header class="header-overlay p-6 text-center bg-gradient-to-b from-slate-900 via-slate-900/80 to-transparent">
-        <h1 class="story-font text-white text-4xl md:text-5xl font-bold">Peta Kearifan Lokal</h1>
-        <p class="ui-font text-slate-300 text-md md:text-lg mt-2">Jelajahi praktik rekayasa air dan ekologi Nusantara</p>
+        <h1 class="story-font text-white text-4xl md:text-5xl font-bold">Peta Kearifan Lokal Jakarta</h1>
+        <p class="ui-font text-slate-300 text-md md:text-lg mt-2">Jelajahi kearifan lokal di pesisir Jakarta</p>
         <a href="dashboard.html" class="mt-4 inline-block text-blue-400 hover:text-blue-300 transition text-sm">&larr; Kembali ke Dashboard Utama</a>
     </header>
 
@@ -203,22 +203,23 @@
             });
 
             // Inisialisasi Peta
-            map = L.map('map').setView([-2.5489, 118.0149], 5);
+            // FIX: Mengubah tampilan awal peta agar fokus ke Jakarta Utara
+            map = L.map('map').setView([-6.12, 106.85], 12);
             L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; CARTO',
                 maxZoom: 19
             }).addTo(map);
 
             // --- Data Kearifan Lokal ---
-            // ID disederhanakan agar sesuai nama file dasar
+            // FIX: Hanya menyertakan data untuk Cilincing, Penjaringan, dan Priok
+            // FIX: Path disesuaikan dengan struktur folder: code/assets/...
             const wisdomPoints = [
-
                 {
                     id: 'cilincing',
                     lat: -6.120,
                     lng: 106.942,
-                    image: 'assets/images/wisdom/cilincing_wisdom.jpg',
-                    geojsonUrl: 'assets/data/wisdom/cilincing_wisdom.geojson',
+                    image: './code/assets/images/wisdom/cilincing_wisdom.jpg',
+                    geojsonUrl: './code/assets/data/wisdom/cilincing_wisdom.geojson',
                     title: 'Kearifan Nelayan Cilincing',
                     description: 'Adaptasi komunitas nelayan di Cilincing terhadap dinamika pesisir, termasuk pola melaut berdasarkan musim dan pengelolaan sumber daya laut secara tradisional untuk keberlanjutan.'
                 },
@@ -226,17 +227,17 @@
                     id: 'penjaringan',
                     lat: -6.115,
                     lng: 106.795,
-                    image: 'assets/images/wisdom/penjaringan_wisdom.jpg',
-                    geojsonUrl: 'assets/data/wisdom/penjaringan_wisdom.geojson',
-                    title: 'Permukiman Tepi Laut Penjaringan.',
+                    image: './code/assets/images/wisdom/penjaringan_wisdom.jpg',
+                    geojsonUrl: './code/assets/data/wisdom/penjaringan_wisdom.geojson',
+                    title: 'Permukiman Tepi Laut Penjaringan',
                     description: 'Pola permukiman historis di Penjaringan yang beradaptasi dengan pasang surut air laut, seperti penggunaan rumah panggung dan jalur air sebagai sarana transportasi utama.'
                 },
                 {
                     id: 'priok',
                     lat: -6.108,
                     lng: 106.884,
-                    image: 'assets/images/wisdom/priok_wisdom.jpeg',
-                    geojsonUrl: 'assets/data/wisdom/priok_wisdom.geojson',
+                    image: './code/assets/images/wisdom/priok_wisdom.jpeg',
+                    geojsonUrl: './code/assets/data/wisdom/priok_wisdom.geojson',
                     title: 'Jejak Maritim Tanjung Priok',
                     description: 'Sebagai pelabuhan bersejarah, Tanjung Priok menyimpan kearifan dalam navigasi laut tradisional dan pengetahuan tentang arus serta cuaca yang diwariskan turun-temurun oleh para pelaut.'
                 }
@@ -261,7 +262,7 @@
                 markers[point.id] = marker;
 
                 card.addEventListener('click', () => {
-                    map.flyTo([point.lat, point.lng], 13);
+                    map.flyTo([point.lat, point.lng], 14); // Zoom lebih dekat
                     highlightActive(point.id);
                     if (point.geojsonUrl) loadWisdomGeoJSON(point.geojsonUrl);
                 });
