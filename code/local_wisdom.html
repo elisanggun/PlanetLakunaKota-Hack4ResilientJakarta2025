@@ -7,64 +7,71 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <style>
+        /* Import font kustom untuk tampilan naratif dan UI */
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600&display=swap');
 
         .story-font { font-family: 'Playfair Display', serif; }
         .ui-font { font-family: 'Inter', sans-serif; }
 
+        /* Konfigurasi dasar untuk peta agar memenuhi seluruh layar */
         #map {
             height: 100vh;
             width: 100vw;
             position: absolute;
             top: 0;
             left: 0;
-            z-index: 10;
+            z-index: 10; /* Peta berada di lapisan paling bawah */
         }
 
+        /* Overlay untuk header agar tidak mengganggu interaksi peta */
         .header-overlay {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 20;
-            pointer-events: none;
+            z-index: 20; /* Header di atas peta */
+            pointer-events: none; /* Biarkan klik menembus header ke peta */
         }
         .header-overlay > * {
-            pointer-events: auto;
+            pointer-events: auto; /* Aktifkan kembali pointer untuk elemen di dalam header */
         }
 
-        /* Floating Gallery Panel Styles */
+        /* Kontainer untuk panel galeri yang mengambang di bagian bawah */
         #gallery-container {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            z-index: 30;
+            z-index: 30; /* Galeri di atas peta dan header */
         }
 
+        /* Panel galeri dengan efek blur dan transisi */
         #gallery-panel {
             background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(10px);
             border-top: 1px solid rgba(59, 130, 246, 0.2);
-            overflow-x: auto;
+            overflow-x: auto; /* Memungkinkan scroll horizontal */
             overflow-y: hidden;
-            white-space: nowrap;
+            white-space: nowrap; /* Mencegah item galeri turun baris */
             transition: transform 0.4s ease-in-out;
-            transform: translateY(0); /* Default state: visible */
+            transform: translateY(0); /* Posisi default: terlihat */
         }
 
+        /* Kelas untuk menyembunyikan panel galeri */
         #gallery-panel.hidden {
             transform: translateY(100%);
         }
 
+        /* Tombol untuk membuka/menutup galeri */
         #gallery-toggle {
             position: absolute;
             bottom: 100%;
             right: 1rem;
         }
 
+        /* Kartu individu di dalam galeri */
         .gallery-card {
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, border-top 0.3s ease;
             border-right: 1px solid rgba(59, 130, 246, 0.15);
             display: inline-block;
             width: 320px;
@@ -76,10 +83,10 @@
         }
         .gallery-card.active {
              background-color: rgba(37, 99, 235, 0.4);
-             border-top: 4px solid #3B82F6;
+             border-top: 4px solid #3B82F6; /* Menandakan item yang aktif */
         }
 
-        /* Custom marker icon */
+        /* Ikon penanda kustom di peta */
         .custom-marker-icon {
             background-color: rgba(52, 211, 153, 0.8);
             border: 2px solid #e0f2fe;
@@ -94,7 +101,7 @@
             background-color: rgba(110, 231, 183, 1);
         }
 
-        /* Modal Styles */
+        /* Gaya untuk modal (popup detail) */
         .modal { display: none; }
         .modal.open { display: flex; }
         .modal-content { animation: fadeInScale 0.4s ease-out; }
@@ -106,17 +113,17 @@
 </head>
 <body class="bg-slate-900 text-gray-200 ui-font overflow-hidden">
 
-    <!-- Map Container -->
+    <!-- Kontainer Peta -->
     <div id="map"></div>
 
-    <!-- Header Overlay -->
+    <!-- Header yang Mengambang di Atas Peta -->
     <header class="header-overlay p-6 text-center bg-gradient-to-b from-slate-900 via-slate-900/80 to-transparent">
         <h1 class="story-font text-white text-4xl md:text-5xl font-bold">Peta Kearifan Lokal</h1>
-        <p class="ui-font text-slate-300 text-md md:text-lg mt-2">Jelajahi praktik rekayasa air pra-kolonial</p>
+        <p class="ui-font text-slate-300 text-md md:text-lg mt-2">Jelajahi praktik rekayasa air dan ekologi Nusantara</p>
         <a href="dashboard.html" class="mt-4 inline-block text-blue-400 hover:text-blue-300 transition text-sm">&larr; Kembali ke Dashboard Utama</a>
     </header>
 
-    <!-- Floating Gallery Container -->
+    <!-- Kontainer Galeri Mengambang -->
     <div id="gallery-container">
         <button id="gallery-toggle" class="bg-gradient-to-t from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white w-14 h-12 rounded-t-lg flex items-center justify-center z-10 shadow-lg transition-all duration-300 transform hover:-translate-y-1">
             <div id="toggle-icon-wrapper" class="transition-transform duration-300">
@@ -127,12 +134,12 @@
         </button>
         <div id="gallery-panel" class="w-full h-auto p-2">
             <div id="gallery-list" class="flex">
-                <!-- Gallery items will be injected here by JavaScript -->
+                <!-- Item galeri akan dimasukkan di sini oleh JavaScript -->
             </div>
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal untuk menampilkan detail gambar dan informasi -->
     <div id="imageModal" class="modal fixed inset-0 bg-black bg-opacity-80 z-50 items-center justify-center p-4">
         <div class="modal-content bg-slate-800 rounded-lg shadow-2xl max-w-4xl w-full max-h-full overflow-auto flex flex-col md:flex-row">
             <img id="modalImage" src="" alt="Gambar Detail" class="w-full md:w-2/3 h-auto object-contain bg-black">
@@ -145,110 +152,135 @@
         <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-4xl">&times;</button>
     </div>
 
+    <!-- Memuat library Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
     <script>
+        // Variabel global untuk menyimpan layer GeoJSON yang sedang aktif
+        let currentWisdomLayer = null;
+        let map; // Jadikan map variabel global
+
+        // Fungsi untuk memuat dan menampilkan GeoJSON ke peta
+        function loadWisdomGeoJSON(url) {
+            if (currentWisdomLayer) {
+                map.removeLayer(currentWisdomLayer);
+            }
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    currentWisdomLayer = L.geoJSON(data, {
+                        style: {
+                            color: "#f59e0b",
+                            weight: 3,
+                            opacity: 0.8
+                        }
+                    }).addTo(map);
+                    map.fitBounds(currentWisdomLayer.getBounds());
+                })
+                .catch(error => console.error('Gagal memuat GeoJSON:', error));
+        }
+
+        // Fungsi untuk membuka modal
+        function openModal(imageSrc, title, description) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDescription').textContent = description;
+            document.getElementById('imageModal').classList.add('open');
+        }
+
+        // Fungsi untuk menutup modal
+        function closeModal() {
+            document.getElementById('imageModal').classList.remove('open');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Modal Logic ---
             const modal = document.getElementById('imageModal');
-            const modalImage = document.getElementById('modalImage');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalDescription = document.getElementById('modalDescription');
-
-            function openModal(imageSrc, title, description) {
-                modalImage.src = imageSrc;
-                modalTitle.textContent = title;
-                modalDescription.textContent = description;
-                modal.classList.add('open');
-            }
-
-            function closeModal() {
-                modal.classList.remove('open');
-            }
-
-            modal.addEventListener('click', function(event) {
-                if (event.target === modal) {
-                    closeModal();
-                }
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) closeModal();
             });
 
-            // --- Map Initialization ---
-            const map = L.map('map').setView([-6.2088, 106.8456], 12);
+            // Inisialisasi Peta
+            map = L.map('map').setView([-2.5489, 118.0149], 5);
             L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; CARTO',
                 maxZoom: 19
             }).addTo(map);
 
-            // --- Gallery Data for Local Wisdom ---
-            const galleryPoints = [
+            // --- Data Kearifan Lokal ---
+            // ID disederhanakan agar sesuai nama file dasar
+            const wisdomPoints = [
+
                 {
-                    id: 'tarumanegara',
-                    lat: -6.1300,
-                    lng: 106.9382,
-                    image: 'https://placehold.co/800x600/1e293b/94a3b8?text=Prasasti+Tugu',
-                    title: 'Kanal Tarumanegara (Abad ke-5)',
-                    description: 'Lokasi penemuan Prasasti Tugu yang mencatat pembangunan kanal Chandrabhaga dan Gomati oleh Raja Purnawarman. Ini adalah bukti tertua rekayasa hidrolik canggih untuk irigasi dan pengendalian banjir di wilayah ini.'
+                    id: 'cilincing',
+                    lat: -6.120,
+                    lng: 106.942,
+                    image: './code/assets/images/wisdom/cilincing_wisdom.jpg',
+                    geojsonUrl: './code/assets/data/wisdom/cilincing_wisdom.geojson',
+                    title: 'Kearifan Nelayan Cilincing',
+                    description: 'Adaptasi komunitas nelayan di Cilincing terhadap dinamika pesisir, termasuk pola melaut berdasarkan musim dan pengelolaan sumber daya laut secara tradisional untuk keberlanjutan.'
                 },
                 {
-                    id: 'situ',
-                    lat: -6.17,
-                    lng: 106.82,
-                    image: 'https://placehold.co/800x600/166534/a7f3d0?text=Situ+or+Lake',
-                    title: 'Sistem Situ (Danau Alami)',
-                    description: 'Sebelum urbanisasi masif, area Jakarta dipenuhi situ-situ (danau kecil) yang berfungsi sebagai area retensi air alami. Masyarakat lokal memanfaatkannya untuk perikanan dan sebagai penampung air hujan, mengurangi beban sungai.'
+                    id: 'penjaringan',
+                    lat: -6.115,
+                    lng: 106.795,
+                    image: './code/assets/images/wisdom/penjaringan_wisdom.jpg',
+                    geojsonUrl: './code/assets/data/wisdom/penjaringan_wisdom.geojson',
+                    title: 'Permukiman Tepi Laut Penjaringan',
+                    description: 'Pola permukiman historis di Penjaringan yang beradaptasi dengan pasang surut air laut, seperti penggunaan rumah panggung dan jalur air sebagai sarana transportasi utama.'
                 },
                 {
-                    id: 'permukiman',
-                    lat: -6.15,
-                    lng: 106.78,
-                    image: 'https://placehold.co/800x600/047857/6ee7b7?text=Permukiman+Tepi+Sungai',
-                    title: 'Pola Permukiman Tepi Sungai',
-                    description: 'Permukiman pra-kolonial seringkali berupa rumah panggung yang beradaptasi dengan pasang surut dan luapan sungai musiman. Arsitektur ini menunjukkan pemahaman mendalam tentang dinamika air setempat.'
+                    id: 'priok',
+                    lat: -6.108,
+                    lng: 106.884,
+                    image: './code/assets/images/wisdom/priok_wisdom.jpeg',
+                    geojsonUrl: './code/assets/data/wisdom/priok_wisdom.geojson',
+                    title: 'Jejak Maritim Tanjung Priok',
+                    description: 'Sebagai pelabuhan bersejarah, Tanjung Priok menyimpan kearifan dalam navigasi laut tradisional dan pengetahuan tentang arus serta cuaca yang diwariskan turun-temurun oleh para pelaut.'
                 }
             ];
 
             const galleryList = document.getElementById('gallery-list');
             const markers = {};
 
-            // --- Populate Gallery and Create Markers ---
-            galleryPoints.forEach(point => {
+            wisdomPoints.forEach(point => {
                 const card = document.createElement('div');
                 card.className = 'gallery-card p-4 cursor-pointer';
                 card.id = `card-${point.id}`;
                 card.innerHTML = `
-                    <img src="${point.image.replace('800x600', '400x300')}" alt="${point.title}" class="w-full h-40 object-cover rounded-md mb-3">
+                    <img src="${point.image}" alt="${point.title}" class="w-full h-40 object-cover rounded-md mb-3" onerror="this.src='https://placehold.co/300x200/1e293b/94a3b8?text=Image+Not+Found'">
                     <h3 class="font-bold text-lg text-green-300">${point.title}</h3>
-                    <p class="text-sm text-slate-400">${point.description.substring(0, 80)}...</p>
+                    <p class="text-sm text-slate-400">${point.description.substring(0, 100)}...</p>
                 `;
                 galleryList.appendChild(card);
 
-                const customIcon = L.divIcon({
-                    className: 'custom-marker-icon',
-                    iconSize: [20, 20]
-                });
+                const customIcon = L.divIcon({ className: 'custom-marker-icon', iconSize: [20, 20] });
                 const marker = L.marker([point.lat, point.lng], { icon: customIcon }).addTo(map);
                 markers[point.id] = marker;
 
                 card.addEventListener('click', () => {
-                    map.flyTo([point.lat, point.lng], 15);
+                    map.flyTo([point.lat, point.lng], 13);
                     highlightActive(point.id);
+                    if (point.geojsonUrl) loadWisdomGeoJSON(point.geojsonUrl);
                 });
 
                 marker.on('click', () => {
                     openModal(point.image, point.title, point.description);
                     highlightActive(point.id);
                     card.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+                    if (point.geojsonUrl) loadWisdomGeoJSON(point.geojsonUrl);
                 });
             });
 
             function highlightActive(id) {
                 document.querySelectorAll('.gallery-card').forEach(c => c.classList.remove('active'));
                 document.getElementById(`card-${id}`).classList.add('active');
-
                 Object.values(markers).forEach(m => m.getElement().classList.remove('active'));
                 markers[id].getElement().classList.add('active');
             }
 
-            // --- Gallery Toggle Logic ---
             const galleryPanel = document.getElementById('gallery-panel');
             const galleryToggle = document.getElementById('gallery-toggle');
             const toggleIconWrapper = document.getElementById('toggle-icon-wrapper');
