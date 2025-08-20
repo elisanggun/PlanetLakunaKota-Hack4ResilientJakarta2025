@@ -33,9 +33,9 @@
     <div id="map"></div>
 
     <header class="header-overlay p-6 text-center bg-gradient-to-b from-slate-900 via-slate-900/80 to-transparent">
-        <h1 class="story-font text-white text-4xl md:text-5xl font-bold">Peta Kearifan Lokal Jakarta</h1>
-        <p class="ui-font text-slate-300 text-md md:text-lg mt-2">Jelajahi kearifan lokal di pesisir Jakarta</p>
-        <a href="dashboard.html" class="mt-4 inline-block text-blue-400 hover:text-blue-300 transition text-sm">&larr; Kembali ke Dashboard Utama</a>
+        <h1 class="story-font text-white text-4xl md:text-5xl font-bold">Jakarta's Local Wisdom Map</h1>
+        <p class="ui-font text-slate-300 text-md md:text-lg mt-2">Explore pre-colonial water engineering practices</p>
+        <a href="dashboard.html" class="mt-4 inline-block text-blue-400 hover:text-blue-300 transition text-sm">&larr; Back to Main Dashboard</a>
     </header>
 
     <div id="gallery-container">
@@ -46,18 +46,18 @@
         </button>
         <div id="gallery-panel" class="w-full h-auto p-2">
             <div id="gallery-list" class="flex">
-                <!-- Kartu galeri akan dibuat secara dinamis dari GeoJSON -->
+                <!-- Gallery cards will be dynamically generated from GeoJSON -->
             </div>
         </div>
     </div>
 
     <div id="imageModal" class="modal fixed inset-0 bg-black bg-opacity-80 z-50 items-center justify-center p-4">
         <div class="modal-content bg-slate-800 rounded-lg shadow-2xl max-w-4xl w-full max-h-full overflow-auto flex flex-col md:flex-row">
-            <img id="modalImage" src="" alt="Gambar Detail" class="w-full md:w-2/3 h-auto object-contain bg-black">
+            <img id="modalImage" src="" alt="Detail Image" class="w-full md:w-2/3 h-auto object-contain bg-black">
             <div class="p-6 flex flex-col">
                 <h3 id="modalTitle" class="story-font text-3xl text-green-300 mb-2"></h3>
                 <p id="modalDescription" class="text-gray-300 leading-relaxed flex-grow"></p>
-                <button onclick="closeModal()" class="mt-4 self-start md:self-end bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-lg transition">Tutup</button>
+                <button onclick="closeModal()" class="mt-4 self-start md:self-end bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-lg transition">Close</button>
             </div>
         </div>
         <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-4xl">&times;</button>
@@ -111,20 +111,19 @@
                 if (event.target === modal) closeModal();
             });
 
-            // --- Data Narasi Baru ---
-            // Objek ini akan menimpa judul dan deskripsi dari GeoJSON
+            // --- New Narrative Data (English) ---
             const narrativeOverrides = {
                 'cilincing_wisdom': {
-                    title: 'Masjid Al Alam, Cilincing',
-                    description: 'Masjid Al Alam di Cilincing sudah ada sejak masa awal perkampungan nelayan dan sering menjadi tempat singgah setelah melaut. Bangunannya berupa rumah panggung dari kayu, dirancang agar tetap bisa berfungsi meski kawasan ini kerap dilanda rob. Kehadirannya menunjukkan bagaimana masyarakat beradaptasi dengan kondisi pesisir yang basah dan rawan banjir.(RCUS, 2025)'
+                    title: 'Al Alam Mosque, Cilincing',
+                    description: 'The Al Alam Mosque in Cilincing has existed since the early days of the fishing village and often served as a stopping place after sea voyages. The building is a wooden stilt house, designed to remain functional even though the area is frequently affected by tidal floods. Its presence shows how the community adapted to wet and flood-prone coastal conditions. (RCUS, 2025)'
                 },
                 'priok_wisdom': {
-                    title: 'Makam Mbah Priok',
-                    description: 'Makam Mbah Priok di Tanjung Priok beberapa kali terendam banjir, tetapi tetap berdiri sebagai pusat ziarah penting. Perlawanan masyarakat ketika area ini sempat hendak digusur memperlihatkan kuatnya ikatan warga dengan situs bersejarah ini. Lingkungan rawa dan air di sekitarnya dipandang bukan hambatan, melainkan bagian dari kehidupan sehari-hari yang sudah lama menyatu dengan kawasan tersebut.(RCUS, 2025)'
+                    title: 'Mbah Priok\'s Tomb',
+                    description: 'Mbah Priok\'s Tomb in Tanjung Priok has been flooded several times but remains an important pilgrimage center. The community\'s resistance when the area was almost evicted shows the strong bond between the residents and this historic site. The surrounding swampy and watery environment is seen not as a hindrance, but as a part of daily life that has long been integrated with the area. (RCUS, 2025)'
                 },
                 'penjaringan_wisdom': {
-                    title: 'Makam Habib Husein Luar Batang',
-                    description: 'Makam Habib Husein Luar Batang terletak di kawasan pesisir yang langsung bersentuhan dengan pasang laut. Banjir rob kerap menutup jalan di sekitarnya, tetapi aktivitas warga dan peziarah tidak berhenti. Kawasan ini memperlihatkan bagaimana kehidupan tetap berjalan meski kondisi lingkungan sering berubah karena air laut.(RCUS, 2025)'
+                    title: 'Habib Husein Luar Batang\'s Tomb',
+                    description: 'Habib Husein Luar Batang\'s Tomb is located in a coastal area directly in contact with the sea tides. Tidal floods often cover the surrounding roads, but the activities of residents and pilgrims do not stop. This area shows how life continues even though environmental conditions frequently change due to the sea. (RCUS, 2025)'
                 }
             };
 
@@ -139,7 +138,7 @@
             const processGeoJSON = (url) => {
                 return fetch(url)
                     .then(response => {
-                        if (!response.ok) throw new Error(`Gagal memuat: ${url}`);
+                        if (!response.ok) throw new Error(`Failed to load: ${url}`);
                         return response.json();
                     })
                     .then(data => {
@@ -159,9 +158,8 @@
                         const imageExtension = id === 'priok_wisdom' ? 'jpeg' : 'jpg';
                         wisdomData[id] = {
                             id: id,
-                            // Gunakan narasi baru jika ada, jika tidak, gunakan dari GeoJSON
-                            title: override ? override.title : (props.name || 'Tanpa Judul'),
-                            description: override ? override.description : (props.description || 'Tidak ada deskripsi.'),
+                            title: override ? override.title : (props.name || 'Untitled'),
+                            description: override ? override.description : (props.description || 'No description available.'),
                             image: `assets/images/wisdom/${id}.${imageExtension}`,
                             lat: coords[0],
                             lng: coords[1],
@@ -202,7 +200,7 @@
             };
 
             Promise.all(geojsonFiles.map(file => processGeoJSON(`assets/data/wisdom/${file}`)))
-                .catch(error => console.error("Terjadi kesalahan saat memuat data kearifan lokal:", error));
+                .catch(error => console.error("An error occurred while loading local wisdom data:", error));
 
             const galleryPanel = document.getElementById('gallery-panel');
             const galleryToggle = document.getElementById('gallery-toggle');
