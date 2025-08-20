@@ -115,7 +115,7 @@ If you have suggestions for improvement, please _fork_ the repo and create a _pu
 - Tarjuki, I. (2014). Jakarta banjir Jakarta dan solusinya. Jakarta: Lembaga Pengkajian Kebudayaan Nusantara.
 - KITLV Photographic Collection. (t.t.). Gambar dari Koleksi Foto KITLV. KITLV. Diakses dari https://www.kitlv.nl/collections/photographic-collection/
 - KITLV Map Collection. (t.t.). Peta dari Koleksi Peta KITLV. KITLV. Diakses dari https://www.kitlv.nl/collections/map-collection/
-
+- Shabrina, Z., Muharram, F. W., Dhirgantara Putra, D., Rui, J., & Asa, M. (2025). Hack4Resilient Jakarta 2025: Sinking City [Data set]. Zenodo. https://doi.org/10.5281/zenodo.16836145
 ---
 
 ## 📧 Contact
