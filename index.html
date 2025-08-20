@@ -51,6 +51,7 @@
             visibility: visible;
         }
         .legend-item { display: flex; align-items: center; margin-bottom: 0.5rem; }
+        .legend-item:last-child { margin-bottom: 0; }
         .legend-line { width: 20px; height: 4px; margin-right: 10px; border-radius: 2px; }
         .legend-point { width: 12px; height: 12px; margin-right: 10px; border-radius: 50%; box-sizing: border-box; }
 
@@ -69,7 +70,7 @@
         <div class="flex flex-col items-center space-y-4 relative">
             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-full bg-slate-700"></div>
             <div id="timeline-progress" class="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 bg-blue-500 transition-all duration-500" style="height: 0px;"></div>
-            <a href="#chapter-1" data-chapter="1" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">Abad ke-5</span></a>
+            <a href="#chapter-1" data-chapter="1" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">5th Century</span></a>
             <a href="#chapter-2" data-chapter="2" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">1610</span></a>
             <a href="#chapter-3" data-chapter="3" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">1620</span></a>
             <a href="#chapter-4" data-chapter="4" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">1631</span></a>
@@ -87,53 +88,53 @@
         </div>
     </nav>
     <div id="story-container">
-        <section id="hero" class="h-screen flex flex-col justify-center items-center text-center p-4 bg-gradient-to-b from-[#0f172a] to-[#1e3a8a]">
+        <section id="hero" class="h-screen flex flex-col justify-center items-center text-center p-4">
             <h1 class="story-font text-blue-500 text-6xl md:text-8xl font-bold fade-in-up">Jakarta's Water Stories</h1>
-            <p class="ui-font text-blue-500 md:text-xl mt-4 max-w-2xl fade-in-up" style="animation-delay: 0.3s;">Sebuah perjalanan mencari "Jalan Pulang"</p>
-            <a href="#chapter-1" class="mt-8 bg-white text-blue-700 font-bold py-3 px-8 rounded-full text-lg transition-transform transform hover:scale-105 fade-in-up" style="animation-delay: 0.6s;">Mulai Perjalanan</a>
+            <p class="ui-font text-blue-500 md:text-xl mt-4 max-w-2xl fade-in-up" style="animation-delay: 0.3s;">A journey to find the "Way Home"</p>
+            <a href="#chapter-1" class="mt-8 bg-white text-blue-700 font-bold py-3 px-8 rounded-full text-lg transition-transform transform hover:scale-105 fade-in-up" style="animation-delay: 0.6s;">Begin the Journey</a>
             <div class="absolute bottom-8 text-white fade-in-up" style="animation-delay: 1s;"><svg class="w-6 h-6 scroll-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg></div>
         </section>
 
-        <section id="chapter-1" class="chapter justify-start" data-geojson-layer="tugu" data-legend-text="Lokasi Penemuan Prasasti Tugu">
+        <section id="chapter-1" class="chapter justify-start" data-geojson-layer="tugu" data-legend-text="Discovery Site of Tugu Inscription">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
                  <img src="./code/assets/images/prasasti_tugu_500.png" alt="Prasasti Tugu" class="w-full h-64 object-cover">
                 <div class="p-8 md:p-10">
-                    <p class="font-bold text-lg text-gray-300 mb-4">Abad ke-5 M</p>
-                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Mula Sang Delta</h2>
-                    <p class="text-base leading-relaxed">Dalam perjalanan menemui mula Jakarta, tidak akan terlepas dari bagaimana alam saling terhubung dan berdialog mesra. Kekuatan angin dan sungai memiliki peran dalam pembentukan ruang, melalui endapan yang saling terhubung, mereka menyambut kehidupan. Endapan dari sungai yang bertumpuk membentuk tanggul alami dan bebukitan, akresi-abrasi yang bersahutan membentuk rupa batasan sebuah Delta. Kejadian yang terus berulang, kadang mereka mati lalu hidup lagi. Untuk melanjutkan kehidupan, Purnawarman sang raja Tarumanegara abad ke-5 mengadakan penggalian sungai untuk kebutuhan pangan dan penambahan ruang resapan akibat aliran air yang melimpah</p>
+                    <p class="font-bold text-lg text-gray-300 mb-4">5th Century AD</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">The origin of the Delta</h2>
+                    <p class="text-base leading-relaxed">In the journey of tracing the origins of Jakarta, one cannot be separated from how nature is interconnected and engages in gentle dialogue. The forces of wind and river played a role in shaping space; through layers of sediment that intertwined, they welcomed life. River deposits that accumulated formed natural levees and hills, while the interplay of accretion and abrasion created the contours of a delta’s boundaries. This cycle kept repeating—at times they died, only to come alive again. To sustain life, Purnawarman, the 5th-century king of Tarumanegara, carried out river excavations to secure food supplies and provide additional water catchment areas in response to the abundant flows.</p>
                 </div>
             </div>
         </section>
 
-        <section id="chapter-2" class="chapter justify-end" data-geojson-layer="canal1619" data-legend-text="Kanal Batavia 1619">
+        <section id="chapter-2" class="chapter justify-end" data-geojson-layer="canal1619" data-legend-text="Batavia Canal 1619">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
                  <img src="./code/assets/images/batavia_1683.jpg" alt="batavia_1683" class="w-full h-64 object-cover">
                 <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">1610</p>
-                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Tamu Jauh yang Ingin Menetap</h2>
-                    <p class="text-base leading-relaxed">Setelah berabad lamanya, sang Delta semakin berjaya karena menjadi pusat jalur dagang dunia sehingga mulai banyak ditinggali manusia, termasuk kongsi dagang dari Barat, VOC namanya, tertarik dan mampir untuk bertamu, kemudian ia mengajak kerabat karibnya dari Belanda, ternyata mereka punya rencana rahasia, ingin juga mereka punya kuasa</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">A Distant Guest Wishing to Settle</h2>
+                    <p class="text-base leading-relaxed">After centuries had passed, the Delta grew ever more prosperous as it became a center of global trade routes, drawing more and more people to dwell there. Among them was a Western trading company, known as the VOC, which stopped by as a guest. Soon after, it invited its close kin from the Netherlands. Yet, they carried a hidden plan—for they too desired to claim power.</p>
                 </div>
             </div>
         </section>
 
-        <section id="chapter-3" class="chapter justify-end" data-geojson-layer="canal1650" data-legend-text="Perkembangan Kanal 1650">
+        <section id="chapter-3" class="chapter justify-end" data-geojson-layer="canal1650" data-legend-text="Canal Development 1650">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
                  <img src="./code/assets/images/batavia_1682.jpeg" alt="Batavia 1682" class="w-full h-64 object-cover">
                 <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">1620</p>
-                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Meluruskan yang Bengkok, Tapi Kesakitan</h2>
-                    <p class="text-base leading-relaxed">Meski semakin ramai dan menjadi pusat manusia bertemu dan berdagang, alam tidak pernah berhenti berdialog dan terus bersahutan. Sang tamu yang tadinya menginap, kini membangun tempat untuk menetap. Sungai yang dulunya berkelok, kini mulai diluruskan, membentuk kanal-kanal dan jejaring baru untuk meningkatkan perekonomian dan memberikan keamanan dari banjir yang menerjang</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Straightening What Is Crooked, Yet in Pain</h2>
+                    <p class="text-base leading-relaxed">Though it grew ever more crowded, becoming a hub where people gathered and traded, nature never ceased its dialogue, echoing without end. The guest who once only stayed the night now built a dwelling to settle. The river, once meandering, was now straightened, forming canals and new networks to boost the economy and provide safety from the floods that struck.</p>
                 </div>
             </div>
         </section>
 
-        <section id="chapter-4" class="chapter justify-start" data-geojson-layer="canal1700" data-legend-text="Kanal Molenvliet">
+        <section id="chapter-4" class="chapter justify-start" data-geojson-layer="canal1700" data-legend-text="Molenvliet Canal">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
                  <img src="./code/assets/images/canal/molenvliet_1870.jpg" alt="molenvliet_1870" class="w-full h-64 object-cover">
                 <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">1631</p>
-                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Molenvliet, Intervensi dari Timur</h2>
-                    <p class="text-base leading-relaxed">Masa perluasan kekuasaan, kanal baru di bagian selatan bernama Molenvliet dibangun oleh kapiten Tionghoa Phoa Beng Gan, dengan tujuan transportasi dan perkembangan perekonomian kawasan. Pada masanya, Molenvliet sempat berjaya dan menjadi ruang publik yang menyenangkan</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Molenvliet, an Intervention from the east</h2>
+                    <p class="text-base leading-relaxed">During the period of territorial expansion, a new canal in the southern part called Molenvliet was built by the Chinese captain Phoa Beng Gan, intended for transportation and the economic development of the area. At its peak, Molenvliet thrived and became a pleasant public space.</p>
                 </div>
             </div>
         </section>
@@ -143,75 +144,75 @@
                  <img src="./code/assets/images/perkebunan_bogor_1871.jpg" alt="Perkebunan di Bogor" class="w-full h-64 object-cover">
                 <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">1714</p>
-                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Penggundulan Puncak</h2>
-                    <p class="text-base leading-relaxed">Demi perluasan industri, nafas alam dikorbankan, Puncak Bogor mulai digunduli, hingga alam melepas air tanpa jeda, banjir dimana-mana membawa cerita luka dari gunung hingga ke muara.</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">When the Peak Was Stripped</h2>
+                    <p class="text-base leading-relaxed">For the sake of industrial expansion, nature’s breath was sacrificed. The slopes of Puncak Bogor were stripped bare, until the land released water without pause. Floods spread everywhere, carrying stories of sorrow from the mountain to the estuary</p>
                 </div>
             </div>
         </section>
 
 
-        <section id="chapter-6" class="chapter justify-end" data-geojson-layer="canal1797,weltevreden" data-legend-text="Perkembangan Kanal 1797">
+        <section id="chapter-6" class="chapter justify-end" data-geojson-layer="weltevreden" data-legend-text="Weltevreden Area">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
-                 <img src="./code/assets/images/canal/weltevreden_1895.jpg" alt="Weltevreden" class="w-full h-64 object-cover">
+                 <img src="./code/assets/images/weltevreden_1895.jpg" alt="Weltevreden" class="w-full h-64 object-cover">
                 <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">1808</p>
-                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Dari Kanal ke Daratan</h2>
-                    <p class="text-base leading-relaxed">Akibat wabah penyakit malaria, pusat pemerintah dipindahkan dari batavia, si rumah lama, berpindah menjauh dari lautan di kawasan Weltevreden. Kanal-kanal kecil untuk transportasi dan irigasi diurug untuk mengurangi sumber penyakit. dari kota kanal menuju kota berbasis transportasi darat</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">From Canals to Land</h2>
+                    <p class="text-base leading-relaxed">As a result of disease outbreaks, the government center was moved from Batavia, the old settlement, farther inland to the Weltevreden area. Small canals used for transport and irrigation were filled in to reduce sources of disease, transforming the city from a canal-based settlement to one oriented around land-based transportation.</p>
                 </div>
             </div>
         </section>
 
-        <section id="chapter-7" class="chapter justify-start" data-geojson-layer="flood1893" data-legend-text="Area Banjir 1893">
+        <section id="chapter-7" class="chapter justify-start" data-geojson-layer="flood1893" data-legend-text="Flood Area 1893">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
                  <img src="./code/assets/images/flood/batavia_flood_1898.jpg" alt="Banjir Batavia 1898" class="w-full h-64 object-cover">
                 <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">1893</p>
-                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Kebanjiran yang Berlanjut</h2>
-                    <p class="text-base leading-relaxed">1893 menjadi tahun banjir besar pertama melanda kawasan Batavia di abad 19. Kebanjiran yang terus berlanjut, dari 1895, 1899, 1904, hingga 1909. Muncul pula wabah kolera yang menyebabkan banyak korban meninggal. Pemerintah saat itu mulai berpikir kembali apa yang perlu dilakukan kedepan, mendorong gagasan dimunculkannya inisiasi Banjir Kanal Barat oleh Hendrik Van Breen</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">The Continuing Floods</h2>
+                    <p class="text-base leading-relaxed">1893 marked the first major flood to hit Batavia in the 19th century. Flooding continued repeatedly in 1895, 1899, 1904, and 1909. Cholera outbreaks also emerged, claiming many lives. The government at the time began reconsidering future actions, which led to the proposal of the Western Flood Canal initiative by Hendrik Van Breen.</p>
                 </div>
             </div>
         </section>
 
-        <section id="chapter-8" class="chapter justify-end" data-geojson-layer="flood1909" data-legend-text="Area Banjir 1909">
+        <section id="chapter-8" class="chapter justify-end" data-geojson-layer="flood1909" data-legend-text="Flood Area 1909">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
                  <img src="./code/assets/images/flood/batavia_flood_1915.jpg" alt="Banjir Batavia 1915" class="w-full h-64 object-cover">
                 <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">1909</p>
-                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Penghuni Lama yang Semakin Tertindas</h2>
-                    <p class="text-base leading-relaxed">Banjir akibat luapan sungai ciliwung dan krukut menggenangi kawasan Waterlooplein yang sekarang bernama lapangan banteng hingga berbentuk seperti danau. Tidak berhenti sampai di sana, air melebar hingga ke perkampungan boemipoetra disekitarnya, Kampung Kepu, Nyonya Wetan, Bendungan, dan Kemayoran menjadi korban. Sayangnya, kurang ada perhatian khusus pada kampung-kampung boemipoetra</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">The Longtime Residents Growing More Oppressed</h2>
+                    <p class="text-base leading-relaxed">Flooding from the overflowing Ciliwung and Krukut rivers inundated the Waterlooplein area, now known as Lapangan Banteng, turning it into a lake-like expanse. The water didn’t stop there, spreading to surrounding Bumiputra settlements—Kampung Kepu, Nyonya Wetan, Bendungan, and Kemayoran—leaving them heavily affected. Unfortunately, these Bumiputra neighborhoods received little special attention.</p>
                 </div>
             </div>
         </section>
 
-        <section id="chapter-9" class="chapter justify-start" data-geojson-layer="canal1937" data-legend-text="Masterplan Kanal 1937">
+        <section id="chapter-9" class="chapter justify-start" data-geojson-layer="canal1937" data-legend-text="Masterplan Canal 1937">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
                  <img src="./code/assets/images/masterplan_1919.png" alt="masterplan 1919" class="w-full h-64 object-cover">
                 <div class="p-8 md:p-10">
-                    <p class="font-bold text-lg text-gray-300 mb-4">1913-1918</p>
-                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Gagasan Banjir Kanal Barat</h2>
-                    <p class="text-base leading-relaxed">Cerita-cerita luapan sungai menggiring Van Breen berpikir solusi nyata, sungai-sungai bagian barat diotak-atik dan direkayasa. Pembangunan kanal banjir barat dilakukan membentang dari Manggarai melaju ke Barat melalui Karet, lalu berbelok ke arah lautan dan berakhir di Muara Angke, Jakarta Utara.</p>
+                    <p class="font-bold text-lg text-gray-300 mb-4">1918</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">The Idea of the Western Flood Canal</h2>
+                    <p class="text-base leading-relaxed">The tales of the river’s overflow led Van Breen to conceive real solutions, as the rivers in the western part were manipulated and engineered. The construction of the western flood canal stretched from Manggarai westward through Karet, then turned toward the sea, ending at Muara Angke in North Jakarta.</p>
                 </div>
             </div>
         </section>
 
-           <section id="chapter-10" class="chapter justify-start" data-geojson-layer="flood1919" data-legend-text="Area Banjir 1919">
+           <section id="chapter-10" class="chapter justify-start" data-geojson-layer="flood1919" data-legend-text="Flood Area 1919">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
                  <img src="./code/assets/images/flood/batavia_flood_1920.jpg" alt="Banjir Batavia 1920" class="w-full h-64 object-cover">
                 <div class="p-8 md:p-10">
-                    <p class="font-bold text-lg text-gray-300 mb-4">1918-1919</p>
-                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Kala Air Mengamuk</h2>
-                    <p class="text-base leading-relaxed">Ada yang jebol di Grogol! Membanjiri hampir seluruh kota hingga menjadi musibah terbesar dibandingkan tahun-tahun sebelumnya. Alur deras air yang mengalir membuat Weltevreden tergenang. Dibukalah si pintu air dari dua arah, batavia di utara dan weltevreden di selatan, menyebabkan derasnya aliran melaju menuju Kali Lio. Tak sanggup menghimpunnya, meluberlah ia ke kawasan bumiputra di sekelilingnya, kampung-kampung jadi korban lagi. Kawasan sekitar Molenvliet yang dulunya berpencar juga semakin basah akibat pembangunan jembatan harmoni yang menyempitkan ruang alirnya.</p>
+                    <p class="font-bold text-lg text-gray-300 mb-4">1919</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">When the Water Raged</h2>
+                    <p class="text-base leading-relaxed">Something broke in Grogol! Flooding nearly the entire city, it became the greatest disaster compared to previous years. The swift current caused Weltevreden to be submerged. The sluice gates were opened from two directions—Batavia in the north and Weltevreden in the south—sending the torrent rushing toward Kali Lio. Unable to contain it, the water spilled over into the surrounding Bumiputra areas, and the villages once again became victims. The areas around Molenvliet, which had once been scattered, grew even wetter due to the construction of the Harmony Bridge, which narrowed the flow of the river.</p>
                 </div>
             </div>
         </section>
 
-        <section id="chapter-11" class="chapter justify-end" data-geojson-layer="flood1932,flood1932b" data-legend-text="Area Banjir 1932">
+        <section id="chapter-11" class="chapter justify-center" data-geojson-layer="flood1932,flood1932b" data-legend-text="Flood Area 1932|Impacted Zone">
              <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
                  <img src="./code/assets/images/flood/batavia_flood_1935.jpg" alt="Banjir Batavia 1935" class="w-full h-64 object-cover">
                 <div class="p-8 md:p-10">
-                    <p class="font-bold text-lg text-gray-300 mb-4">1930-1932</p>
-                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Aliran yang Makin Berpencar</h2>
-                    <p class="text-base leading-relaxed">Solusi pelurusan aliran air di barat itu ternyata belum optimal, membawa masalah kian berkepanjangan. Semakin meluas saat bendungan Citarum dan Kedawung ikut jebol</p>
+                    <p class="font-bold text-lg text-gray-300 mb-4">1932</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">A Flow That Spreads Further</h2>
+                    <p class="text-base leading-relaxed">The solution of straightening the western water channels had not proven optimal, leading to increasingly prolonged problems. The flooding spread even more when the Citarum and Kedawung dams also broke.</p>
                 </div>
              </div>
         </section>
@@ -220,48 +221,48 @@
              <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
                  <img src="./code/assets/images/masterplan_1949.png" alt="Masterplan 1949" class="w-full h-64 object-cover">
                 <div class="p-8 md:p-10">
-                    <p class="font-bold text-lg text-gray-300 mb-4">1919-1949</p>
-                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Dua Coretan Cetak Biru Tergambar</h2>
-                    <p class="text-base leading-relaxed">Ada harapan cetak biru yang digambarkan dengan rupa Masterplan pengelolaan banjir untuk 1919-1949 oleh Van Breen dan dilengkapi ideasinya oleh Blommestein di tahun 1949. Garis demi garis tergambarkan, meneguhkan ide teknokratik untuk masa depan. Dua dokumen rencana besar yang menyuguhkan proyek pengendalian banjir. Pembangunan kanal timur, sistem pompa, tambahan pintu air, waduk tampungan, polder-polder, hingga tanggul laut sepanjang Teluk Jakarta digagas pada masanya</p>
+                    <p class="font-bold text-lg text-gray-300 mb-4">1949</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Two Blueprint Sketches Take Shape</h2>
+                    <p class="text-base leading-relaxed">Hope was outlined in the form of a master plan for flood management from 1919 to 1949, drafted by Van Breen and later supplemented with Blommestein’s ideas in 1949. Line by line, the plans reinforced a technocratic vision for the future. These two major planning documents proposed extensive flood control projects: the construction of the eastern canal, pumping systems, additional sluice gates, retention reservoirs, polders, and a seawall along Jakarta Bay.</p>
                 </div>
              </div>
         </section>
 
-        <section id="chapter-13" class="chapter justify-start" data-geojson-layer="intervensi" data-legend-text="Intervensi Warga">
+        <section id="chapter-13" class="chapter justify-start" data-geojson-layer="intervensi" data-legend-text="Citizen Intervention">
             <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
-                <p class="font-bold text-lg text-gray-300 mb-4">1952-1956</p>
-                <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Suara Harapan dari Rumah</h2>
-                <p class="text-base leading-relaxed">Ada suara lokal yang muncul ke permukaan. Saling bahu membahu, turun tangan bergotong royong memberi percikan harapan pertama menuju jalan pulang. Pada masanya pemerintah tak ada biaya dan disibukkan dengan urusan kepemerintahan yang masih baru. Untuk beradaptasi dengan kondisi, warga lokal berupaya melakukan intervensi pengendalian banjir secara mandiri.</p>
+                <p class="font-bold text-lg text-gray-300 mb-4">1956</p>
+                <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Voices of Hope from Home</h2>
+                <p class="text-base leading-relaxed">Local voices began to surface. People helped one another, working together to spark the first glimmers of hope toward finding a way home. At the time, the government had no funds and was preoccupied with the affairs of a still-new administration. To adapt to the situation, local residents took flood control into their own hands, acting independently.</p>
             </div>
         </section>
 
-        <section id="chapter-14" class="chapter justify-end" data-geojson-layer="canal1959,waduk1960" data-legend-text="Kanal & Waduk">
+        <section id="chapter-14" class="chapter justify-center" data-geojson-layer="canal1959,waduk1960" data-legend-text="Canal 1959|Reservoir 1960">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
                 <img src="./code/assets/images/waduk_melati.jpg" alt="waduk_melati" class="w-full h-64 object-cover">
                 <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">1960</p>
-                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Pencarian Jalan Pulang</h2>
-                    <p class="text-base leading-relaxed">Dari dua cetak biru lama yang terbentang, kesitulah arah kota diserahkan. Ada dua proyek besar yang mulai dikerahkan, proyek hulu berupa normalisasi dan pembuatan waduk-waduk. Proyek hilir berupa pengerukan dan penataan jalur hijau sungai. Beberapa proyek memaksa penggusuran ruang mencari penghidupan. Pencarian menuju jalan pulang semakin terabaikan.</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Finding The Way Home</h2>
+                    <p class="text-base leading-relaxed">From the two old blueprints that had been laid out, the city’s direction was set. Two major projects were launched: upstream projects focused on river normalization and the construction of reservoirs, while downstream projects involved dredging and arranging green river corridors. Some of these projects forced the displacement of livelihoods, and the search for a true way home increasingly became neglected.</p>
                 </div>
             </div>
         </section>
 
-        <section id="chapter-15" class="chapter justify-end" data-geojson-layer="canal2024,flood2024" data-legend-text="Kanal 2024|Area Banjir 2024">
+        <section id="chapter-15" class="chapter justify-end" data-geojson-layer="canal2024,flood2024" data-legend-text="Canal 2024|Flood Area 2024">
             <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
                 <img src="./code/assets/images/jakarta_flood_now.jpg" alt="Banjir Jakarta Masa kini" class="w-full h-64 object-cover">
                 <div class="p-8 md:p-10">
                     <p class="font-bold text-lg text-gray-300 mb-4">2024</p>
-                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Menuju Kepulangan</h2>
-                    <p class="text-base leading-relaxed">Mari berpikir kembali lebih dalam kondisi masa kini, bagaimana pemangku kepentingan melihat persoalan persoalan banjir saat ini. Rencana besar dalam mengendalikan banjir memang sudah termuat, namun apakah kesemuanya sudah sesuai dengan konteks yang ada? Mari berpikir kembali, menilik karakter bawaan sang delta, apakah sudah sepatutnya kita menjadi kendali untuk semua? atau mau mulai bersahabat dengannya.</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Toward Homecoming</h2>
+                    <p class="text-base leading-relaxed">Let us reflect more deeply on today’s conditions—how stakeholders perceive the issue of flooding today. Grand plans for flood control have indeed been laid out, but are they truly in line with the existing context? Let us think again, revisiting the inherent character of the delta: should we truly seek to control it all, or shall we begin to make peace with it?</p>
                 </div>
             </div>
         </section>
 
         <section id="epilog" class="chapter min-h-screen justify-center items-center">
             <div class="text-center max-w-3xl mx-auto">
-                <h2 class="story-font text-4xl md:text-5xl text-white mb-6">EPILOG: Menuju Pulang walau Beda Masa</h2>
-                <p class="text-lg text-slate-300 leading-relaxed mb-8">Perjalanan ini adalah tentang ingatan sang delta yang menjadi Jakarta. Kisahnya belum berakhir. "Jalan Pulang" bukanlah kembali ke masa lalu, tetapi menemukan cara baru untuk hidup harmonis dengan air di masa depan. Bab selanjutnya ada di tangan kita.</p>
-                <a href="./code/dashboard.html" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-10 rounded-lg text-xl transition-transform transform hover:scale-105">Jelajahi Data & Tulis Bab Baru</a>
+                <h2 class="story-font text-4xl md:text-5xl text-white mb-6">EPILOGUE: Towards Home, Though Times Differ</h2>
+                <p class="text-lg text-slate-300 leading-relaxed mb-8">This journey is about the memory of the delta that became Jakarta. Its story is not yet over. ‘The Way Home’ is not about returning to the past, but about finding new ways to live in harmony with water in the future. The next chapter lies in our hands</p>
+                <a href="code/dashboard.html" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-10 rounded-lg text-xl transition-transform transform hover:scale-105">Explore Data & Write a New Chapter</a>
             </div>
         </section>
     </div>
@@ -275,15 +276,12 @@
             const legendElement = document.getElementById('map-legend');
             const timelineNav = document.getElementById('timeline-nav');
             const heroSection = document.getElementById('hero');
-            const chapters = document.querySelectorAll('.chapter');
-            const timelinePoints = document.querySelectorAll('.timeline-point');
-            const timelineProgress = document.getElementById('timeline-progress');
 
             let activeGeoJsonLayers = [];
             const geojsonLayers = {};
 
             async function preloadGeoJsonLayers() {
-              const layerConfig = {
+                const layerConfig = {
                     'tugu': './code/assets/data/points/prasasti_tugu.geojson',
                     'canal1619': './code/assets/data/canal/1619_canal.geojson',
                     'canal1650': './code/assets/data/canal/1650_canal.geojson',
@@ -310,7 +308,7 @@
                         const data = await response.json();
                         const color = key.includes('flood') ? "#EF4444" : "#3B82F6";
 
-                        if (data.features[0].geometry.type === 'Point') {
+                        if (data.features[0]?.geometry.type === 'Point') {
                              geojsonLayers[key] = L.geoJSON(data, {
                                 pointToLayer: function (feature, latlng) {
                                     return L.circleMarker(latlng, {
@@ -362,12 +360,13 @@
                     }
                 }
 
-                const legendText = chapter.dataset.legendText;
-                if (legendText && geojsonKeys.length > 0) {
+                const legendTexts = chapter.dataset.legendText ? chapter.dataset.legendText.split('|') : [];
+                if (legendTexts.length > 0 && geojsonKeys.length > 0) {
                     let legendHtml = '';
-                    geojsonKeys.forEach(key => {
+                    geojsonKeys.forEach((key, index) => {
                          if (geojsonLayers[key]) {
                             const layer = geojsonLayers[key];
+                            const text = legendTexts[index] || '';
                             let symbolHtml = '';
                              if (layer.getLayers && layer.getLayers()[0] instanceof L.CircleMarker) {
                                 const pointStyle = layer.getLayers()[0].options;
@@ -376,7 +375,7 @@
                                 const lineStyle = layer.options.style || geojsonLayers[key].getLayers()[0].options.style;
                                 symbolHtml = `<div class='legend-line' style='background-color: ${lineStyle.color};'></div>`;
                             }
-                            legendHtml += `<div class='legend-item'>${symbolHtml}<span>${legendText}</span></div>`;
+                            legendHtml += `<div class='legend-item'>${symbolHtml}<span>${text}</span></div>`;
                          }
                     });
                     legendElement.innerHTML = legendHtml;
@@ -390,7 +389,7 @@
                 entries.forEach(entry => {
                     const chapter = entry.target;
                     if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-                        chapters.forEach(c => c.classList.remove('active'));
+                        document.querySelectorAll('.chapter').forEach(c => c.classList.remove('active'));
                         chapter.classList.add('active');
                         updateMapState(chapter);
                         const chapterNum = parseInt(chapter.id.replace('chapter-', ''));

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historical Gallery - Shape of Jakarta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600&display=swap');
+
+        .story-font { font-family: 'Playfair Display', serif; }
+        .ui-font { font-family: 'Inter', sans-serif; }
+
+        .gallery-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+        .gallery-item .overlay {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+        /* Filter button styles */
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active {
+            background-color: #2563EB;
+            color: white;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.5);
+        }
+
+        /* Modal Styles */
+        .modal { display: none; }
+        .modal.open { display: flex; }
+        .modal-content { animation: fadeInScale 0.4s ease-out; }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-gray-200 ui-font">
+
+    <!-- Header -->
+    <header class="py-12 bg-gradient-to-b from-[#0f172a] to-slate-900 text-center">
+        <h1 class="story-font text-white text-5xl md:text-7xl font-bold">Galeri Arsip</h1>
+        <p class="ui-font text-slate-300 text-lg md:text-xl mt-2">Menelusuri Arsip Visual Perjalanan Air Jakarta</p>
+        <a href="dashboard.html" class="mt-6 inline-block text-blue-400 hover:text-blue-300 transition">&larr; Kembali ke Dasbor Utama</a>
+    </header>
+
+    <!-- Filter Controls -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+        <div id="filter-container" class="flex flex-wrap justify-center gap-3">
+            <button class="filter-btn active bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 px-5 rounded-full" onclick="filterGallery('all')">Semua</button>
+            <button class="filter-btn bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 px-5 rounded-full" onclick="filterGallery('banjir')">Banjir</button>
+            <button class="filter-btn bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 px-5 rounded-full" onclick="filterGallery('infrastruktur')">Infrastruktur</button>
+            <button class="filter-btn bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 px-5 rounded-full" onclick="filterGallery('kehidupan')">Kehidupan</button>
+            <button class="filter-btn bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 px-5 rounded-full" onclick="filterGallery('dokumen')">Dokumen</button>
+        </div>
+    </div>
+
+    <!-- Gallery Container -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+            <!-- Daftar Gambar Anda -->
+            <div class="gallery-item group cursor-pointer" data-category="infrastruktur" onclick="openModal('assets/images/canal/molenvliet_1870.jpg', 'Kanal Molenvliet (1870)', 'Pemandangan Kanal Molenvliet, salah satu infrastruktur air utama di Batavia yang berfungsi untuk transportasi dan sanitasi.')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/canal/molenvliet_1870.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Kanal Molenvliet (1870)</p></div></div>
+            </div>
+            <div class="gallery-item group cursor-pointer" data-category="banjir" onclick="openModal('assets/images/flood/batavia_flood_1898.jpg', 'Banjir Batavia (1898)', 'Salah satu dokumentasi banjir besar yang melanda Batavia pada akhir abad ke-19, menunjukkan dampak luapan sungai terhadap pemukiman.')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/flood/batavia_flood_1898.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Banjir Batavia (1898)</p></div></div>
+            </div>
+            <div class="gallery-item group cursor-pointer" data-category="banjir" onclick="openModal('assets/images/flood/batavia_flood_1915.jpg', 'Banjir Batavia (1915)', 'Kondisi banjir di Batavia pada tahun 1915, menyoroti kerentanan kota terhadap curah hujan tinggi bahkan setelah pembangunan kanal.')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/flood/batavia_flood_1915.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Banjir Batavia (1915)</p></div></div>
+            </div>
+            <div class="gallery-item group cursor-pointer" data-category="banjir" onclick="openModal('assets/images/flood/batavia_flood_1918.jpg', 'Banjir Batavia (1918)', 'Dokumentasi lain dari banjir tahun 1918 yang mendorong Prof. van Breen untuk merancang solusi pengendalian banjir yang lebih komprehensif.')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/flood/batavia_flood_1918.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Banjir Batavia (1918)</p></div></div>
+            </div>
+            <div class="gallery-item group cursor-pointer" data-category="banjir" onclick="openModal('assets/images/flood/batavia_flood_1920.jpg', 'Banjir Batavia (1920)', 'Situasi pasca-pembangunan Kanal Banjir Barat, menunjukkan bahwa beberapa area masih rentan terhadap genangan.')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/flood/batavia_flood_1920.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Banjir Batavia (1920)</p></div></div>
+            </div>
+            <div class="gallery-item group cursor-pointer" data-category="banjir" onclick="openModal('assets/images/flood/batavia_flood_1935.jpg', 'Banjir Batavia (1935)', 'Banjir besar pada tahun 1930-an yang menunjukkan keterbatasan infrastruktur yang ada dalam menghadapi curah hujan ekstrem.')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/flood/batavia_flood_1935.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Banjir Batavia (1935)</p></div></div>
+            </div>
+            <div class="gallery-item group cursor-pointer" data-category="banjir" onclick="openModal('assets/images/flood/batavia_flood_1949.jpg', 'Banjir Jakarta (1949)', 'Kondisi banjir di Jakarta pada masa awal kemerdekaan, mewarisi masalah infrastruktur dari era kolonial.')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/flood/batavia_flood_1949.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Banjir Jakarta (1949)</p></div></div>
+            </div>
+            <div class="gallery-item group cursor-pointer" data-category="banjir" onclick="openModal('assets/images/flood/pasar_baru_flood_1872.jpg', 'Banjir Pasar Baru (1872)', 'Area komersial Pasar Baru terendam banjir, menunjukkan bahwa pusat ekonomi pun tidak luput dari dampak luapan air.')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/flood/pasar_baru_flood_1872.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Banjir Pasar Baru (1872)</p></div></div>
+            </div>
+            <div class="gallery-item group cursor-pointer" data-category="kehidupan" onclick="openModal('assets/images/batavia_1682.jpeg', 'Kehidupan di Batavia (1682)', 'Ilustrasi yang menggambarkan kehidupan sehari-hari di kota Batavia, dengan kanal sebagai pusat aktivitas.')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/batavia_1682.jpeg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Kehidupan di Batavia (1682)</p></div></div>
+            </div>
+            <div class="gallery-item group cursor-pointer" data-category="kehidupan" onclick="openModal('assets/images/malaria_batavia_1983.jpg', 'Wabah Malaria (1983)', 'Ilustrasi yang menggambarkan dampak kesehatan dari sanitasi yang buruk dan air yang tergenang, menyebabkan wabah malaria di Batavia.')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/malaria_batavia_1983.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Wabah Malaria (1983)</p></div></div>
+            </div>
+            <div class="gallery-item group cursor-pointer" data-category="kehidupan" onclick="openModal('assets/images/noordjwik_1912.jpg', 'Jalan Noordwijk (1912)', 'Pemandangan Jalan Noordwijk (sekarang Jl. Juanda) yang menunjukkan perkembangan kota ke arah selatan.')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/noordjwik_1912.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Jalan Noordwijk (1912)</p></div></div>
+            </div>
+            <div class="gallery-item group cursor-pointer" data-category="kehidupan" onclick="openModal('assets/images/perkebunan_bogor_1871.jpg', 'Perkebunan di Bogor (1871)', 'Pembukaan lahan perkebunan di area hulu seperti Bogor mengurangi area resapan air dan meningkatkan volume air yang mengalir ke Batavia.')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/perkebunan_bogor_1871.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Perkebunan di Bogor (1871)</p></div></div>
+            </div>
+            <div class="gallery-item group cursor-pointer" data-category="kehidupan" onclick="openModal('assets/images/perkebunan_bogor_1895.jpg', 'Perkebunan di Bogor (1895)', 'Lanjutan ekspansi perkebunan di hulu yang berdampak pada peningkatan frekuensi dan volume banjir di hilir.')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/perkebunan_bogor_1895.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Perkebunan di Bogor (1895)</p></div></div>
+            </div>
+            <div class="gallery-item group cursor-pointer" data-category="dokumen" onclick="openModal('assets/images/prasasti_tugu_500.png', 'Prasasti Tugu (Abad ke-5)', 'Prasasti ini adalah bukti arkeologis tertua tentang rekayasa air di wilayah Jakarta, mencatat pembangunan kanal oleh Raja Purnawarman')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/prasasti_tugu_500.png" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Prasasti Tugu (Abad ke-5)</p></div></div>
+            </div>
+            <div class="gallery-item group cursor-pointer" data-category="dokumen" onclick="openModal('assets/images/van_breen_1919.jpeg', 'Rencana van Breen (1919)', 'Potongan dari masterplan yang dirancang oleh Prof. van Breen, termasuk rencana pembangunan Kanal Banjir Barat.')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/van_breen_1919.jpeg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Rencana van Breen (1919)</p></div></div>
+            </div>
+            <div class="gallery-item group cursor-pointer" data-category="kehidupan" onclick="openModal('assets/images/weltevreden_1895.jpg', 'Weltevreden (1895)', 'Pemandangan area Weltevreden, pusat pemerintahan baru yang dibangun di area yang lebih tinggi untuk menghindari wabah penyakit di kota tua.')">
+                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/weltevreden_1895.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Weltevreden (1895)</p></div></div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="imageModal" class="modal fixed inset-0 bg-black bg-opacity-80 z-50 items-center justify-center p-4">
+        <div class="modal-content bg-slate-800 rounded-lg shadow-2xl max-w-4xl w-full max-h-full overflow-auto flex flex-col md:flex-row">
+            <img id="modalImage" src="" alt="Gambar Detail" class="w-full md:w-2/3 h-auto object-contain bg-black">
+            <div class="p-6 flex flex-col">
+                <h3 id="modalTitle" class="story-font text-3xl text-blue-300 mb-2"></h3>
+                <p id="modalDescription" class="text-gray-300 leading-relaxed flex-grow"></p>
+                <button onclick="closeModal()" class="mt-4 self-start md:self-end bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-lg transition">Tutup</button>
+            </div>
+        </div>
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-4xl">&times;</button>
+    </div>
+
+    <script>
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+
+        function openModal(imageSrc, title, description) {
+            modalImage.src = imageSrc;
+            modalTitle.textContent = title;
+            modalDescription.textContent = description;
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('open');
+            document.body.style.overflow = 'auto';
+        }
+
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // --- Filter Logic ---
+        const filterContainer = document.getElementById('filter-container');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        function filterGallery(category) {
+            // Update active button
+            const buttons = filterContainer.querySelectorAll('.filter-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+                if(button.getAttribute('onclick') === `filterGallery('${category}')`) {
+                    button.classList.add('active');
+                }
+            });
+
+            // Filter items
+            galleryItems.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                if (category === 'all' || itemCategory === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
