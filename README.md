@@ -1,90 +1,91 @@
 # Jakarta's Water Stories – Interactive Flooding Story Dashboard
 
-[![Status: Aktif](https://img.shields.io/badge/status-aktif-success.svg)]()
+[![Status: Active](https://img.shields.io/badge/status-aktif-success.svg)]()
 
-Sebuah dashboard interaktif untuk memahami sejarah banjir di Jakarta melalui narasi sejarah, peta linimasa, kearifan lokal, suara warga, dan galeri visual.
-
----
-
-## 🚀 Demo Langsung
-
-**Lihat versi livenya di sini:** [**jakartaswaterstories.github.io**](https://elisanggun.github.io/PlanetLakunaKota-Hack4ResilientJakarta2025/)
+An interactive dashboard to understand the history of flooding in Jakarta through historical narratives, timeline maps, local wisdom, citizens’ voices, and visual galleries.
 
 ---
 
-## 🧐 Tentang Proyek
+## 🚀 Live Demo
 
-Proyek **Jakarta's Water Stories** bertujuan memberikan narasi visual tentang bagaimana evolusi kota Jakarta dari masa pra-kolonial hingga menjadi megacity modern berdampak pada risiko banjir. Dashboard ini tidak hanya menampilkan data, tetapi juga mengarsipkan kearifan lokal dan mengumpulkan cerita warga untuk membangun pemahaman kolektif.
-
-### ✨ Fitur Utama
-
-* **Cerita Perjalanan** – narasi interaktif tentang sejarah banjir Jakarta dan kaitannya dengan perkembangan kota.  
-* **Linimasa Perjalanan** – peta visualisasi perubahan lanskap Jakarta dari abad ke-16 hingga masa kini.  
-* **Petuah Perjalanan** – arsip kearifan lokal seperti sistem situ, kanal tradisional, dan arsitektur panggung yang masih relevan untuk pengendalian banjir.  
-* **Suara Perjalanan** – platform partisipatif di mana warga dapat berbagi pengalaman banjir, memetakan memori kolektif.  
-* **Album Perjalanan** – galeri visual berisi arsip foto, ilustrasi, dan dokumen tentang Jakarta dan air.  
+**Check out the live version here:** [**jakartaswaterstories.github.io**](https://elisanggun.github.io/PlanetLakunaKota-Hack4ResilientJakarta2025/)
 
 ---
 
-## 🛠️ Dibangun Dengan
+## 🧐 About the Project
 
-Proyek ini dibangun menggunakan teknologi web standar yang ringan dan cepat:
+The **Jakarta's Water Stories** project aims to provide a visual narrative of how Jakarta’s evolution—from the pre-colonial period to becoming a modern megacity—has shaped its flood risks. This dashboard does not only display data but also archives local wisdom and collects citizens’ stories to build collective understanding.
+
+### ✨ Key Features
+
+* **Stories Journey** – interactive narratives on Jakarta’s flood history and its relation to urban development.
+* **Timeline Journey** – visual maps showing changes in Jakarta’s landscape from the 16th century to the present.
+* **Wisdom Journey** – an archive of local knowledge such as the situ (small lakes) system, traditional canals, and stilt architecture that remain relevant for flood control.
+* **Voices Journey** – a participatory platform where citizens can share flood experiences, mapping collective memory.
+* **Album Journey** – a visual gallery of photos, illustrations, and documents about Jakarta and water.  
+
+---
+
+## 🛠️ Built With
+
+This project was built using lightweight, fast, and standard web technologies:
 
 * [**HTML5**](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)  
-* [**Tailwind CSS**](https://tailwindcss.com/) – untuk styling UI yang modern dan responsif.  
-* [**JavaScript (Vanilla JS)**](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – untuk semua fungsionalitas interaktif.  
+* [**Tailwind CSS**](https://tailwindcss.com/) – for modern and responsive UI styling. 
+* [**JavaScript (Vanilla JS)**](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – for interactive functionality.
 
 ---
 
-## 🏁 Memulai (Getting Started)
+## 🏁 Getting Started
 
-Karena proyek ini bersifat statis, Anda tidak memerlukan instalasi yang rumit. Cukup kloning repositori ini dan buka file utamanya di browser.
+As this project is static, you don’t need a complicated installation. Simply clone this repository and open the main file in your browser.
 
-### Prasyarat
+### Prerequisites
 
-Anda hanya memerlukan browser web modern seperti Chrome, Firefox, Safari, atau Edge.
+You only need a modern web browser such as Chrome, Firefox, Safari, or Edge.
 
-### Instalasi
+### Installation
 
-1.  Kloning repositori ini ke komputer lokal Anda:
+1.  Clone this repository to your local computer:
     ```bash
     git clone [https://github.com/nama-anda/nama-repositori.git](https://github.com/nama-anda/nama-repositori.git)
     ```
-2.  Masuk ke direktori proyek:
+2.  Navigate into the project directory:
     ```bash
     cd nama-repositori
     ```
-3.  Buka file `index.html` di browser Anda. Selesai!
+3.  Open the `index.html` file in your browser. Done!
 
 ---
 
-## 🗺️ Peta Jalan (Roadmap)
+## 🗺️ Future Dashboard Development
 
-Berikut adalah beberapa ide untuk pengembangan di masa depan:
+Here are some ideas for future development:
 
-* [ ] Integrasi dengan API data banjir real-time dari BPBD atau sumber lain.
-* [ ] Menambahkan lebih banyak lapisan data historis dan geospasial.
-* [ ] Mengembangkan backend sederhana untuk menyimpan "Memory Mapping" secara permanen.
-
-Lihat [halaman Issues](https://github.com/nama-anda/nama-repositori/issues) untuk daftar lengkap fitur yang diusulkan dan bug yang diketahui.
-
----
-
-## 🤝 Berkontribusi
-
-Kontribusi adalah hal yang membuat komunitas open source menjadi tempat yang luar biasa untuk belajar, menginspirasi, dan berkreasi. Setiap kontribusi yang Anda buat sangat **dihargai**.
-
-Jika Anda memiliki saran untuk memperbaikinya, silakan *fork* repo ini dan buat *pull request*. Anda juga bisa membuka *issue* dengan tag "enhancement".
-
-1.  **Fork** Proyek ini.
-2.  Buat **Branch Fitur** Anda (`git checkout -b fitur/FiturLuarBiasa`).
-3.  **Commit** Perubahan Anda (`git commit -m 'Menambahkan FiturLuarBiasa'`).
-4.  **Push** ke Branch (`git push origin fitur/FiturLuarBiasa`).
-5.  Buka sebuah **Pull Request**.
+* [ ] Enhancement of the timeline analysis completeness within the _Timeline Journey_ section.
+* [ ] Addition of urban morphology data to the _Timeline Journey_ section, integration of local wisdom mapping into the _Wisdom Journey_ section, and inclusion of photographic archives in the _Album Journey_ section.
+* [ ] Development of a validation feature for participatory mapping inputs within the _Voices Journey_ section.
+* [ ] Integration of the dashboard with the official Jakarta website.
+      
+See the [Issues Page](https://github.com/nama-anda/nama-repositori/issues) for a complete list of proposed features and known bugs.
 
 ---
 
-## 👥 Kredit
+## 🤝 Contributing
+
+Contributions are what make the open source community such a great place to learn, inspire, and create. Any contribution you make is **greatly appreciated.**
+
+If you have suggestions for improvement, please _fork_ the repo and create a _pull request_. You can also open an issue with the tag "enhancement."
+
+1.  **Fork** the project.
+2.  Create your **Feature Branch** (`git checkout -b fitur/FiturLuarBiasa`).
+3.  **Commit** your changes (`git commit -m 'Menambahkan FiturLuarBiasa'`).
+4.  **Push** to the branch (`git push origin fitur/FiturLuarBiasa`).
+5.  Open a **Pull Request**.
+
+---
+
+## 👥 Credit
 
 - **Wardatut Toyyibah** – Urban Design & History Research  
 - **Imas Nurrahmah Priandani** – Urban Design & History Research 
@@ -93,7 +94,7 @@ Jika Anda memiliki saran untuk memperbaikinya, silakan *fork* repo ini dan buat 
 
 ---
 
-## 📚 Referensi
+## 📚 Reference
 
 - Dewi, E. P., Sujatini, S., Suryani, F., & Wijaya, A. (2022). Canals To Streets: Postcolonial Studies On The Urban Transformation Of Colonial Batavia. Engineering Heritage Journal (GWK), 6(1), 25-30.
 - Hiroko, M. (2014). Batavia facing tropical sedimentation: The water management of the Dutch colonial city in the Asian monsoon tectonic zone.
@@ -117,8 +118,9 @@ Jika Anda memiliki saran untuk memperbaikinya, silakan *fork* repo ini dan buat 
 
 ---
 
-## 📧 Kontak
+## 📧 Contact
 
 **Planet - Lakuna Kota Team** - [lakunakota@gmail.com]
 
-Link Proyek: [https://github.com/elisanggun/PlanetLakunaKota-Hack4ResilientJakarta2025]
+Project Link: [https://github.com/elisanggun/PlanetLakunaKota-Hack4ResilientJakarta2025]
+
