@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shape of Jakarta - A Water Story</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600&display=swap');
+        .story-font { font-family: 'Playfair Display', serif; }
+        .ui-font { font-family: 'Inter', sans-serif; }
+        #map { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 0; opacity: 0; transition: opacity 1.5s ease-in-out; }
+        #map.visible { opacity: 1; }
+        #story-container { position: relative; z-index: 10; }
+        .chapter { min-height: 100vh; padding: 2rem; display: flex; align-items: center; }
+        .story-card { max-width: 480px; backdrop-filter: blur(12px) saturate(150%); background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(59, 130, 246, 0.15); transition: all 0.5s ease-in-out; opacity: 0.3; }
+        .chapter.active .story-card { opacity: 1; transform: scale(1.05); box-shadow: 0 0 40px rgba(59, 130, 246, 0.3); }
+        #timeline-nav { opacity: 0; visibility: hidden; transition: opacity 0.8s ease, visibility 0.8s ease; }
+        #timeline-nav.visible { opacity: 1; visibility: visible; }
+        .timeline-point .timeline-dot { width: 0.75rem; height: 0.75rem; border-radius: 9999px; background-color: #4B5563; transition: all 0.3s; }
+        .timeline-point .timeline-dot.active { transform: scale(1.8); background-color: #3B82F6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
+        .timeline-point .timeline-year { position: absolute; right: 100%; margin-right: 1rem; color: #9CA3AF; font-weight: 700; white-space: nowrap; opacity: 0; transition: all 0.3s; }
+        .timeline-point:hover .timeline-year, .timeline-point.active .timeline-year { opacity: 1; transform: translateX(10px); }
+        .timeline-point.active .timeline-year { color: #e0f2fe; }
+        .fade-in-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 1s ease-out forwards; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        .scroll-arrow { animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-15px); } 60% { transform: translateY(-5px); } }
+    </style>
+</head>
+<body class="bg-slate-900 text-gray-200 ui-font">
+    <div id="map"></div>
+    <nav id="timeline-nav" class="fixed top-1/2 right-4 md:right-8 transform -translate-y-1/2 z-20 hidden lg:block">
+        <div class="flex flex-col items-center space-y-5 relative">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 h-full bg-slate-700"></div>
+            <div id="timeline-progress" class="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 bg-blue-500 transition-all duration-500" style="height: 0px;"></div>
+            <a href="#chapter-1" data-chapter="1" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">Asal Mula</span></a>
+            <a href="#chapter-2" data-chapter="2" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">1610</span></a>
+            <a href="#chapter-3" data-chapter="3" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">1628</span></a>
+            <a href="#chapter-4" data-chapter="4" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">1714</span></a>
+            <a href="#chapter-5" data-chapter="5" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">1770</span></a>
+            <a href="#chapter-6" data-chapter="6" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">1808</span></a>
+            <a href="#chapter-7" data-chapter="7" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">1878</span></a>
+            <a href="#chapter-8" data-chapter="8" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">1919</span></a>
+            <a href="#chapter-9" data-chapter="9" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">1930</span></a>
+            <a href="#chapter-10" data-chapter="10" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">1952</span></a>
+            <a href="#chapter-11" data-chapter="11" class="timeline-point relative z-10 flex items-center group"><div class="timeline-dot"></div><span class="timeline-year">1960</span></a>
+        </div>
+    </nav>
+    <div id="story-container">
+        <section id="hero" class="h-screen flex flex-col justify-center items-center text-center p-4 bg-gradient-to-b from-[#0f172a] to-[#1e3a8a]">
+            <h1 class="story-font text-white text-6xl md:text-8xl font-bold fade-in-up">Jakarta's Water Stories</h1>
+            <p class="ui-font text-slate-300 text-lg md:text-xl mt-4 max-w-2xl fade-in-up" style="animation-delay: 0.3s;">Sebuah perjalanan mencari "Jalan Pulang"</p>
+            <a href="#chapter-1" class="mt-8 bg-white text-blue-700 font-bold py-3 px-8 rounded-full text-lg transition-transform transform hover:scale-105 fade-in-up" style="animation-delay: 0.6s;">Begin the Journey</a>
+            <div class="absolute bottom-8 text-white fade-in-up" style="animation-delay: 1s;"><svg class="w-6 h-6 scroll-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg></div>
+        </section>
+        <section id="chapter-1" class="chapter justify-start" data-lat="-6.1" data-lon="106.8" data-zoom="11">
+            <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
+                <img src="https://placehold.co/600x400/1e293b/94a3b8?text=Delta+Sungai+Purba" alt="Ilustrasi Delta Sungai Purba" class="w-full h-48 object-cover">
+                <div class="p-8 md:p-10">
+                    <p class="font-bold text-lg text-gray-300 mb-4">PROLOG: Rumah yang Harmonis</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Ingatan Sang Delta</h2>
+                    <p class="text-base leading-relaxed">Sebelum bernama Jakarta, daratan ini adalah sebuah delta yang hidup, bernafas bersama 13 sungai. Di sinilah "Jalan Pulang"-nya berada: dalam harmoni dengan air. Peradaban awal seperti Tarumanegara memahami ini. Mereka tidak menentang, melainkan menari bersama alirannya.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- === BAGIAN YANG HILANG DIKEMBALIKAN === -->
+        <section id="chapter-2" class="chapter justify-center" data-lat="-6.1214" data-lon="106.793" data-zoom="13">
+            <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
+                <p class="font-bold text-lg text-gray-300 mb-4">1610: Kedatangan VOC</p>
+                <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Jalan yang Dibengkokkan</h2>
+                <p class="text-base leading-relaxed">Lalu datanglah para arsitek dari seberang lautan. Mereka melihat delta ini sebagai tanah taklukan, bukan rumah. Garis-garis lurus mulai digambar di atas lekuk tubuh alaminya. "Jalan Pulang" sang delta mulai dibengkokkan, dipaksa mengikuti mimpi yang bukan miliknya.</p>
+            </div>
+        </section>
+        <section id="chapter-3" class="chapter justify-end" data-lat="-6.1352" data-lon="106.8175" data-zoom="14">
+            <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
+                <p class="font-bold text-lg text-gray-300 mb-4">1628: Perlawanan Pertama Delta</p>
+                <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Teriakan Air</h2>
+                <p class="text-base leading-relaxed">Sang delta melawan. Banjir besar pertama adalah caranya berteriak. Air yang dipaksa lurus, kini meluap mencari jalan aslinya. Namun, teriakan itu tidak didengar. Tembok-tembok dibangun semakin keras, semakin jauh membawanya dari "Jalan Pulang".</p>
+            </div>
+        </section>
+        <section id="chapter-4" class="chapter justify-start" data-lat="-6.5975" data-lon="106.7995" data-zoom="11">
+            <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
+                <img src="https://placehold.co/600x400/047857/6ee7b7?text=Hutan+di+Puncak" alt="Penggundulan Hutan di Puncak" class="w-full h-48 object-cover">
+                <div class="p-8 md:p-10">
+                    <p class="font-bold text-lg text-gray-300 mb-4">1714: Luka di Hulu</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Nafas yang Terenggut</h2>
+                    <p class="text-base leading-relaxed">Pohon-pohon di hulu adalah paru-parunya. Mereka ditebang demi industri. Nafasnya mulai sesak. Setiap tetes hujan kini menjadi air bah yang turun tanpa jeda, membawa luka dari gunung hingga ke muara.</p>
+                </div>
+            </div>
+        </section>
+        <section id="chapter-5" class="chapter justify-center" data-lat="-6.13" data-lon="106.81" data-zoom="14">
+            <div class="story-card rounded-2xl shadow-2xl overflow-hidden">
+                <img src="https://placehold.co/600x400/52525b/a1a1aa?text=Ilustrasi+Wabah" alt="Ilustrasi Wabah Malaria" class="w-full h-48 object-cover">
+                <div class="p-8 md:p-10">
+                    <p class="font-bold text-lg text-gray-300 mb-4">1770: Demam Sang Kota</p>
+                    <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Air yang Sakit</h2>
+                    <p class="text-base leading-relaxed">Air yang dipaksa diam akan jatuh sakit. Kanal-kanal yang dibanggakan menjadi sumber wabah. Kota ini demam, sebuah gejala dari penyakit yang lebih dalam: keterasingannya dari alam.</p>
+                </div>
+            </div>
+        </section>
+        <section id="chapter-6" class="chapter justify-end" data-lat="-6.1751" data-lon="106.8272" data-zoom="15">
+            <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
+                <p class="font-bold text-lg text-gray-300 mb-4">1808: Pelarian Sia-sia</p>
+                <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Mencari Rumah di Tanah Asing</h2>
+                <p class="text-base leading-relaxed">Para penguasa lari dari kota tua yang sakit, pindah ke selatan. Tapi mereka tidak pernah benar-benar pindah dari cara berpikir lama. Mereka hanya membangun sangkar yang sama di lokasi yang baru, semakin jauh dari "Jalan Pulang" yang sejati.</p>
+            </div>
+        </section>
+        <section id="chapter-7" class="chapter justify-start" data-lat="-6.18" data-lon="106.83" data-zoom="14">
+            <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
+                <p class="font-bold text-lg text-gray-300 mb-4">1878: Ingatan yang Tak Terbendung</p>
+                <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Air Selalu Kembali</h2>
+                <p class="text-base leading-relaxed">Banjir besar kembali datang. Ini adalah pengingat dari sang delta: kota bisa dibangun di atasnya, tapi ingatannya tak bisa dihapus. Air selalu tahu jalan pulangnya, bahkan ketika manusia telah lupa.</p>
+            </div>
+        </section>
+        <section id="chapter-8" class="chapter justify-center" data-lat="-6.16" data-lon="106.80" data-zoom="13">
+            <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
+                <p class="font-bold text-lg text-gray-300 mb-4">1919: Rapuhnya Tembok</p>
+                <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Arogansi Teknologi</h2>
+                <p class="text-base leading-relaxed">Bendungan dan pintu air dibangun, sebuah kepercayaan bahwa teknologi bisa menaklukkan. Namun banjir sekali lagi membuktikan bahwa solusi parsial tidak akan pernah berhasil. Upaya untuk mengontrol hanya menunda, bukan menyelesaikan.</p>
+            </div>
+        </section>
+        <section id="chapter-9" class="chapter justify-end" data-lat="-6.20" data-lon="106.79" data-zoom="14">
+            <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
+                <p class="font-bold text-lg text-gray-300 mb-4">1930: Kota yang Tenggelam</p>
+                <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Kehilangan Arah</h2>
+                <p class="text-base leading-relaxed">Kota ini berada di titik terendah, tenggelam dalam kesalahannya sendiri. Sistem kanal warisan telah menjadi monumen kegagalan, sebuah simbol kota yang telah benar-benar kehilangan arah "Jalan Pulang"-nya.</p>
+            </div>
+        </section>
+        <section id="chapter-10" class="chapter justify-start" data-lat="-6.21" data-lon="106.81" data-zoom="13">
+            <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
+                <p class="font-bold text-lg text-gray-300 mb-4">1952: Percikan Harapan</p>
+                <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Suara-suara yang Kembali Terdengar</h2>
+                <p class="text-base leading-relaxed">Setelah merdeka, ada yang berbeda. Gagasan yang lebih besar mulai didengar. Suara warga dan kearifan kolektif mulai berpadu dengan rencana teknis. Ini adalah percikan harapan pertama dalam pencarian "Jalan Pulang".</p>
+            </div>
+        </section>
+        <section id="chapter-11" class="chapter justify-center" data-lat="-6.23" data-lon="106.80" data-zoom="12">
+            <div class="story-card rounded-2xl shadow-2xl p-8 md:p-10">
+                <p class="font-bold text-lg text-gray-300 mb-4">1960: Persimpangan Jalan</p>
+                <h2 class="story-font text-3xl md:text-4xl text-blue-300 mb-2">Membangun Masa Depan</h2>
+                <p class="text-base leading-relaxed">Era modern datang dengan masterplan raksasa. Sebuah upaya ambisius untuk memperbaiki luka masa lalu. Namun, ini adalah sebuah persimpangan: akankah rencana ini menjadi jalan baru yang lebih bijaksana, atau hanya pengulangan mimpi lama dalam skala yang lebih besar?</p>
+            </div>
+        </section>
+        <!-- === AKHIR BAGIAN YANG HILANG === -->
+
+        <section id="chapter-12" class="chapter min-h-screen justify-center items-center">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="story-font text-4xl md:text-5xl text-white mb-6">Mencari "Jalan Pulang" Kita</h2>
+                <p class="text-lg text-slate-300 leading-relaxed mb-8">Perjalanan ini adalah tentang ingatan sang delta yang menjadi Jakarta. Kisahnya belum berakhir. "Jalan Pulang" bukanlah kembali ke masa lalu, tetapi menemukan cara baru untuk hidup harmonis dengan air di masa depan. Bab selanjutnya ada di tangan kita.</p>
+                <a href="code/dashboard.html" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-10 rounded-lg text-xl transition-transform transform hover:scale-105">Jelajahi Data & Tulis Bab Baru</a>
+            </div>
+        </section>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const map = L.map('map', { scrollWheelZoom: false, zoomControl: false }).setView([-6.2088, 106.8456], 11);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; CARTO' }).addTo(map);
+
+            const storyContainer = document.getElementById('story-container');
+            const mapElement = document.getElementById('map');
+            const timelineNav = document.getElementById('timeline-nav');
+            const heroSection = document.getElementById('hero');
+            const chapters = document.querySelectorAll('.chapter');
+            const timelinePoints = document.querySelectorAll('.timeline-point');
+            const timelineProgress = document.getElementById('timeline-progress');
+
+            const storyObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    const chapter = entry.target;
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                        chapters.forEach(c => c.classList.remove('active'));
+                        chapter.classList.add('active');
+                        const lat = parseFloat(chapter.dataset.lat);
+                        const lon = parseFloat(chapter.dataset.lon);
+                        const zoom = parseInt(chapter.dataset.zoom);
+                        if (!isNaN(lat) && !isNaN(lon) && !isNaN(zoom)) {
+                            map.flyTo([lat, lon], zoom, { duration: 2, easeLinearity: 0.25 });
+                        }
+                        const chapterNum = parseInt(chapter.id.replace('chapter-', ''));
+                        updateTimeline(chapterNum);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            const heroObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        mapElement.classList.remove('visible');
+                        timelineNav.classList.remove('visible');
+                    } else {
+                        mapElement.classList.add('visible');
+                        timelineNav.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            heroObserver.observe(heroSection);
+            chapters.forEach(chapter => {
+                if(chapter.id.startsWith('chapter-') && !chapter.id.endsWith('12')) storyObserver.observe(chapter);
+            });
+
+            function updateTimeline(chapterNum) {
+                timelinePoints.forEach((point, index) => {
+                    const pointDot = point.querySelector('.timeline-dot');
+                    point.classList.remove('active');
+                    pointDot.classList.remove('active');
+                    if ((index + 1) == chapterNum) {
+                        point.classList.add('active');
+                        pointDot.classList.add('active');
+                    }
+                });
+                if (chapterNum > 0 && chapterNum <= timelinePoints.length) {
+                    const firstPoint = timelinePoints[0];
+                    const currentPoint = timelinePoints[chapterNum - 1];
+                    const progressHeight = currentPoint.offsetTop - firstPoint.offsetTop;
+                    timelineProgress.style.height = `${progressHeight}px`;
+                }
+            }
+
+            timelinePoints.forEach(point => {
+                point.addEventListener('click', e => {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(point.getAttribute('href'));
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
