@@ -41,57 +41,33 @@ export const timelineEvents = {
 
 // Konfigurasi layer
 export const layerConfig = {
- administrasi: {
+    // Layer Dasar
+    administrasi: {
         url: 'assets/data/adm/adm_dki-jakart_FeaturesToJSO.geojson',
-        name: 'Batas Administrasi',
-        style: { color: "#4ade80", weight: 1, opacity: 0.7, fillColor: "#166534", fillOpacity: 0.3 },
-        highlightStyle: { weight: 4, color: '#FFFF00', fillOpacity: 0.7 }
+        style: { color: "#4ade80", weight: 1, opacity: 0.7, fillColor: "#166534", fillOpacity: 0.2 }
     },
     sungai: {
         url: 'assets/data/hidrology/Sungai_Primer_FeaturesToJSON.geojson',
-        name: 'Sungai Primer',
-        style: { color: "#60a5fa", weight: 2, opacity: 0.9 },
-        highlightStyle: { weight: 5, color: '#FFFF00', opacity: 1 }
+        style: { color: "#60a5fa", weight: 2, opacity: 0.9 }
     },
-    canal1619: {
-        url: 'assets/data/canal/1619_canal.geojson',
-        name: 'Kanal 1619',
-        style: { color: "#f59e0b", weight: 1.5, opacity: 0.8 }, // Warna amber
-        highlightStyle: { weight: 4, color: '#FFFF00', opacity: 1 }
-    },
-    canal1650: {
-        url: 'assets/data/canal/1650_canal.geojson',
-        name: 'Kanal 1650',
-        style: { color: "#fbbf24", weight: 1.5, opacity: 0.8 }, // Warna amber lebih terang
-        highlightStyle: { weight: 4, color: '#FFFF00', opacity: 1 }
-    },
-    canal1700: {
-        url: 'assets/data/canal/1700_canal.geojson',
-        name: 'Kanal 1700',
-        style: { color: "#fcd34d", weight: 1.5, opacity: 0.8 }, // Warna amber lebih muda
-        highlightStyle: { weight: 4, color: '#FFFF00', opacity: 1 }
-    },
-    canal1797: {
-        url: 'assets/data/canal/1797_canal.geojson',
-        name: 'Kanal 1797',
-        style: { color: "#fef08a", weight: 1.5, opacity: 0.8 }, // Warna amber paling muda
-        highlightStyle: { weight: 4, color: '#FFFF00', opacity: 1 }
-     },
     prasasti_tugu: {
         url: 'assets/data/points/prasasti_tugu.geojson',
-        // Gaya untuk titik: kita akan menggunakan 'pointToLayer' untuk membuat lingkaran
-        pointToLayerStyle: {
-            radius: 8,
-            fillColor: "#fef08a",
-            color: "#fff",
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.8
-        },
-        highlightStyle: {
-            radius: 10,
-            fillColor: '#FFFF00',
-            fillOpacity: 1
-        }
-    }
+        pointToLayerStyle: { radius: 8, fillColor: "#fef08a", color: "#fff", weight: 1, opacity: 1, fillOpacity: 0.8 }
+    },
+    // Layer Kanal
+    canal1619: { url: 'assets/data/canal/1619_canal.geojson', style: { color: "#f59e0b", weight: 1.5, opacity: 0.8 } },
+    canal1650: { url: 'assets/data/canal/1650_canal.geojson', style: { color: "#fbbf24", weight: 1.5, opacity: 0.8 } },
+    canal1700: { url: 'assets/data/canal/1700_canal.geojson', style: { color: "#fcd34d", weight: 1.5, opacity: 0.8 } },
+    canal1797: { url: 'assets/data/canal/1797_canal.geojson', style: { color: "#fef08a", weight: 1.5, opacity: 0.8 } },
+    canal1937: { url: 'assets/data/canal/1937_canal.geojson', style: { color: "#fde68a", weight: 1.5, opacity: 0.8 } },
+    canal1959: { url: 'assets/data/canal/1959_canals.geojson', style: { color: "#fef3c7", weight: 1.5, opacity: 0.8 } },
+    canal2024: { url: 'assets/data/canal/2024_canals.geojson', style: { color: "#ffffff", weight: 1.5, opacity: 0.8 } },
+    // Layer Banjir
+    flood1893: { url: 'assets/data/flood/1893_flood.geojson', style: { fillColor: "#fca5a5", color: "#fca5a5", weight: 1, fillOpacity: 0.4 } },
+    flood1909: { url: 'assets/data/flood/1909_flood.geojson', style: { fillColor: "#f87171", color: "#f87171", weight: 1, fillOpacity: 0.4 } },
+    flood1919: { url: 'assets/data/flood/1919_flood.geojson', style: { fillColor: "#ef4444", color: "#ef4444", weight: 1, fillOpacity: 0.4 } },
+    flood1932: { url: 'assets/data/flood/1932_flood.geojson', style: { fillColor: "#dc2626", color: "#dc2626", weight: 1, fillOpacity: 0.4 } },
+    flood2018: { url: 'assets/data/flood/2018_flood.geojson', style: { fillColor: "#b91c1c", color: "#b91c1c", weight: 1, fillOpacity: 0.4 } },
+    flood2020: { url: 'assets/data/flood/2020_flood.geojson', style: { fillColor: "#991b1b", color: "#991b1b", weight: 1, fillOpacity: 0.4 } },
+    flood2024: { url: 'assets/data/flood/2024_flood.geojson', style: { fillColor: "#7f1d1d", color: "#7f1d1d", weight: 1, fillOpacity: 0.4 } }
 };

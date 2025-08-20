@@ -86,35 +86,38 @@ function updateMapLayers(timelineValue) {
 
     // Sembunyikan semua layer terlebih dahulu
     Object.values(layers).forEach(layer => {
-        if (map.hasLayer(layer)) {
-            map.removeLayer(layer);
-        }
+        if (map.hasLayer(layer)) map.removeLayer(layer);
     });
 
     // Tampilkan layer spesifik berdasarkan era
-    // timelineValue: 0=300s, 1=1500s, 2=1600s, 3=1800s, 4=1940s, 5=1960s, 6=2024
+    // timelineValue: 0=1500s, 1=1600s, 2=1800s, 3=1950s, 4=2024
     switch (timelineValue) {
-        case 0: // Era Kerajaan
+        case 0: // Pra-Kolonial
+            if (layers.sungai) map.addLayer(layers.sungai);
             if (layers.prasasti_tugu) map.addLayer(layers.prasasti_tugu);
             break;
-        case 1: // Pra-Kolonial Lanjutan
-            if (layers.sungai) map.addLayer(layers.sungai);
-            break;
-        case 2: // Batavia (Kolonial Awal)
+        case 1: // Kolonial Awal (1600-an)
             if (layers.sungai) map.addLayer(layers.sungai);
             if (layers.canal1619) map.addLayer(layers.canal1619);
             if (layers.canal1650) map.addLayer(layers.canal1650);
             break;
-        case 3: // Weltevreden (Kolonial Akhir)
+        case 2: // Ekspansi Kolonial (1800-an)
             if (layers.sungai) map.addLayer(layers.sungai);
             if (layers.canal1700) map.addLayer(layers.canal1700);
             if (layers.canal1797) map.addLayer(layers.canal1797);
+            if (layers.flood1893) map.addLayer(layers.flood1893);
             break;
-        case 4: // Awal Kemerdekaan
-        case 5: // Orde Baru
-        case 6: // Modern
+        case 3: // Pasca-Kemerdekaan (1950-an)
             if (layers.sungai) map.addLayer(layers.sungai);
             if (layers.administrasi) map.addLayer(layers.administrasi);
+            if (layers.canal1959) map.addLayer(layers.canal1959);
+            if (layers.flood1932) map.addLayer(layers.flood1932);
+            break;
+        case 4: // Modern (2024)
+            if (layers.sungai) map.addLayer(layers.sungai);
+            if (layers.administrasi) map.addLayer(layers.administrasi);
+            if (layers.canal2024) map.addLayer(layers.canal2024);
+            if (layers.flood2024) map.addLayer(layers.flood2024);
             break;
     }
 
