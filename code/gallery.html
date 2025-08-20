@@ -3,40 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historical Gallery - Shape of Jakarta</title>
+    <title>Local Wisdom Map - Shape of Jakarta</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <style>
+        /* Import font kustom untuk tampilan naratif dan UI */
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600&display=swap');
 
         .story-font { font-family: 'Playfair Display', serif; }
         .ui-font { font-family: 'Inter', sans-serif; }
 
-        .gallery-item {
-            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease;
-        }
-        .gallery-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-        }
-        .gallery-item .overlay {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .gallery-item:hover .overlay {
-            opacity: 1;
+        /* Konfigurasi dasar untuk peta agar memenuhi seluruh layar */
+        #map {
+            height: 100vh;
+            width: 100vw;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10; /* Peta berada di lapisan paling bawah */
         }
 
-        /* Filter button styles */
-        .filter-btn {
+        /* Overlay untuk header agar tidak mengganggu interaksi peta */
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 20; /* Header di atas peta */
+            pointer-events: none; /* Biarkan klik menembus header ke peta */
+        }
+        .header-overlay > * {
+            pointer-events: auto; /* Aktifkan kembali pointer untuk elemen di dalam header */
+        }
+
+        /* Kontainer untuk panel galeri yang mengambang di bagian bawah */
+        #gallery-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 30; /* Galeri di atas peta dan header */
+        }
+
+        /* Panel galeri dengan efek blur dan transisi */
+        #gallery-panel {
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            overflow-x: auto; /* Memungkinkan scroll horizontal */
+            overflow-y: hidden;
+            white-space: nowrap; /* Mencegah item galeri turun baris */
+            transition: transform 0.4s ease-in-out;
+            transform: translateY(0); /* Posisi default: terlihat */
+        }
+
+        /* Kelas untuk menyembunyikan panel galeri */
+        #gallery-panel.hidden {
+            transform: translateY(100%);
+        }
+
+        /* Tombol untuk membuka/menutup galeri */
+        #gallery-toggle {
+            position: absolute;
+            bottom: 100%;
+            right: 1rem;
+        }
+
+        /* Kartu individu di dalam galeri */
+        .gallery-card {
+            transition: background-color 0.3s ease, border-top 0.3s ease;
+            border-right: 1px solid rgba(59, 130, 246, 0.15);
+            display: inline-block;
+            width: 320px;
+            vertical-align: top;
+            white-space: normal;
+        }
+        .gallery-card:hover {
+            background-color: rgba(30, 41, 59, 0.7);
+        }
+        .gallery-card.active {
+             background-color: rgba(37, 99, 235, 0.4);
+             border-top: 4px solid #3B82F6; /* Menandakan item yang aktif */
+        }
+
+        /* Ikon penanda kustom di peta */
+        .custom-marker-icon {
+            background-color: rgba(52, 211, 153, 0.8);
+            border: 2px solid #e0f2fe;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            box-shadow: 0 0 15px rgba(52, 211, 153, 0.7);
             transition: all 0.3s ease;
         }
-        .filter-btn.active {
-            background-color: #2563EB;
-            color: white;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.5);
+        .custom-marker-icon:hover, .custom-marker-icon.active {
+            transform: scale(1.8);
+            background-color: rgba(110, 231, 183, 1);
         }
 
-        /* Modal Styles */
+        /* Gaya untuk modal (popup detail) */
         .modal { display: none; }
         .modal.open { display: flex; }
         .modal-content { animation: fadeInScale 0.4s ease-out; }
@@ -46,89 +111,40 @@
         }
     </style>
 </head>
-<body class="bg-slate-900 text-gray-200 ui-font">
+<body class="bg-slate-900 text-gray-200 ui-font overflow-hidden">
 
-    <!-- Header -->
-    <header class="py-12 bg-gradient-to-b from-[#0f172a] to-slate-900 text-center">
-        <h1 class="story-font text-white text-5xl md:text-7xl font-bold">Galeri Arsip</h1>
-        <p class="ui-font text-slate-300 text-lg md:text-xl mt-2">Menelusuri Arsip Visual Perjalanan Air Jakarta</p>
-        <a href="dashboard.html" class="mt-6 inline-block text-blue-400 hover:text-blue-300 transition">&larr; Kembali ke Dasbor Utama</a>
+    <!-- Kontainer Peta -->
+    <div id="map"></div>
+
+    <!-- Header yang Mengambang di Atas Peta -->
+    <header class="header-overlay p-6 text-center bg-gradient-to-b from-slate-900 via-slate-900/80 to-transparent">
+        <h1 class="story-font text-white text-4xl md:text-5xl font-bold">Peta Kearifan Lokal</h1>
+        <p class="ui-font text-slate-300 text-md md:text-lg mt-2">Jelajahi praktik rekayasa air dan ekologi Nusantara</p>
+        <a href="dashboard.html" class="mt-4 inline-block text-blue-400 hover:text-blue-300 transition text-sm">&larr; Kembali ke Dashboard Utama</a>
     </header>
 
-    <!-- Filter Controls -->
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
-        <div id="filter-container" class="flex flex-wrap justify-center gap-3">
-            <button class="filter-btn active bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 px-5 rounded-full" onclick="filterGallery('all')">Semua</button>
-            <button class="filter-btn bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 px-5 rounded-full" onclick="filterGallery('banjir')">Banjir</button>
-            <button class="filter-btn bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 px-5 rounded-full" onclick="filterGallery('infrastruktur')">Infrastruktur</button>
-            <button class="filter-btn bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 px-5 rounded-full" onclick="filterGallery('kehidupan')">Kehidupan</button>
-            <button class="filter-btn bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-2 px-5 rounded-full" onclick="filterGallery('dokumen')">Dokumen</button>
+    <!-- Kontainer Galeri Mengambang -->
+    <div id="gallery-container">
+        <button id="gallery-toggle" class="bg-gradient-to-t from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white w-14 h-12 rounded-t-lg flex items-center justify-center z-10 shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+            <div id="toggle-icon-wrapper" class="transition-transform duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </div>
+        </button>
+        <div id="gallery-panel" class="w-full h-auto p-2">
+            <div id="gallery-list" class="flex">
+                <!-- Item galeri akan dimasukkan di sini oleh JavaScript -->
+            </div>
         </div>
     </div>
 
-    <!-- Gallery Container -->
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-
-            <!-- Daftar Gambar Anda -->
-            <div class="gallery-item group cursor-pointer" data-category="infrastruktur" onclick="openModal('assets/images/canal/molenvliet_1870.jpg', 'Kanal Molenvliet (1870)', 'Pemandangan Kanal Molenvliet, salah satu infrastruktur air utama di Batavia yang berfungsi untuk transportasi dan sanitasi.')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/canal/molenvliet_1870.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Kanal Molenvliet (1870)</p></div></div>
-            </div>
-            <div class="gallery-item group cursor-pointer" data-category="banjir" onclick="openModal('assets/images/flood/batavia_flood_1898.jpg', 'Banjir Batavia (1898)', 'Salah satu dokumentasi banjir besar yang melanda Batavia pada akhir abad ke-19, menunjukkan dampak luapan sungai terhadap pemukiman.')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/flood/batavia_flood_1898.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Banjir Batavia (1898)</p></div></div>
-            </div>
-            <div class="gallery-item group cursor-pointer" data-category="banjir" onclick="openModal('assets/images/flood/batavia_flood_1915.jpg', 'Banjir Batavia (1915)', 'Kondisi banjir di Batavia pada tahun 1915, menyoroti kerentanan kota terhadap curah hujan tinggi bahkan setelah pembangunan kanal.')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/flood/batavia_flood_1915.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Banjir Batavia (1915)</p></div></div>
-            </div>
-            <div class="gallery-item group cursor-pointer" data-category="banjir" onclick="openModal('assets/images/flood/batavia_flood_1918.jpg', 'Banjir Batavia (1918)', 'Dokumentasi lain dari banjir tahun 1918 yang mendorong Prof. van Breen untuk merancang solusi pengendalian banjir yang lebih komprehensif.')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/flood/batavia_flood_1918.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Banjir Batavia (1918)</p></div></div>
-            </div>
-            <div class="gallery-item group cursor-pointer" data-category="banjir" onclick="openModal('assets/images/flood/batavia_flood_1920.jpg', 'Banjir Batavia (1920)', 'Situasi pasca-pembangunan Kanal Banjir Barat, menunjukkan bahwa beberapa area masih rentan terhadap genangan.')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/flood/batavia_flood_1920.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Banjir Batavia (1920)</p></div></div>
-            </div>
-            <div class="gallery-item group cursor-pointer" data-category="banjir" onclick="openModal('assets/images/flood/batavia_flood_1935.jpg', 'Banjir Batavia (1935)', 'Banjir besar pada tahun 1930-an yang menunjukkan keterbatasan infrastruktur yang ada dalam menghadapi curah hujan ekstrem.')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/flood/batavia_flood_1935.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Banjir Batavia (1935)</p></div></div>
-            </div>
-            <div class="gallery-item group cursor-pointer" data-category="banjir" onclick="openModal('assets/images/flood/batavia_flood_1949.jpg', 'Banjir Jakarta (1949)', 'Kondisi banjir di Jakarta pada masa awal kemerdekaan, mewarisi masalah infrastruktur dari era kolonial.')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/flood/batavia_flood_1949.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Banjir Jakarta (1949)</p></div></div>
-            </div>
-            <div class="gallery-item group cursor-pointer" data-category="banjir" onclick="openModal('assets/images/flood/pasar_baru_flood_1872.jpg', 'Banjir Pasar Baru (1872)', 'Area komersial Pasar Baru terendam banjir, menunjukkan bahwa pusat ekonomi pun tidak luput dari dampak luapan air.')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/flood/pasar_baru_flood_1872.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Banjir Pasar Baru (1872)</p></div></div>
-            </div>
-            <div class="gallery-item group cursor-pointer" data-category="kehidupan" onclick="openModal('assets/images/batavia_1682.jpeg', 'Kehidupan di Batavia (1682)', 'Ilustrasi yang menggambarkan kehidupan sehari-hari di kota Batavia, dengan kanal sebagai pusat aktivitas.')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/batavia_1682.jpeg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Kehidupan di Batavia (1682)</p></div></div>
-            </div>
-            <div class="gallery-item group cursor-pointer" data-category="kehidupan" onclick="openModal('assets/images/malaria_batavia_1983.jpg', 'Wabah Malaria (1983)', 'Ilustrasi yang menggambarkan dampak kesehatan dari sanitasi yang buruk dan air yang tergenang, menyebabkan wabah malaria di Batavia.')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/malaria_batavia_1983.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Wabah Malaria (1983)</p></div></div>
-            </div>
-            <div class="gallery-item group cursor-pointer" data-category="kehidupan" onclick="openModal('assets/images/noordjwik_1912.jpg', 'Jalan Noordwijk (1912)', 'Pemandangan Jalan Noordwijk (sekarang Jl. Juanda) yang menunjukkan perkembangan kota ke arah selatan.')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/noordjwik_1912.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Jalan Noordwijk (1912)</p></div></div>
-            </div>
-            <div class="gallery-item group cursor-pointer" data-category="kehidupan" onclick="openModal('assets/images/perkebunan_bogor_1871.jpg', 'Perkebunan di Bogor (1871)', 'Pembukaan lahan perkebunan di area hulu seperti Bogor mengurangi area resapan air dan meningkatkan volume air yang mengalir ke Batavia.')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/perkebunan_bogor_1871.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Perkebunan di Bogor (1871)</p></div></div>
-            </div>
-            <div class="gallery-item group cursor-pointer" data-category="kehidupan" onclick="openModal('assets/images/perkebunan_bogor_1895.jpg', 'Perkebunan di Bogor (1895)', 'Lanjutan ekspansi perkebunan di hulu yang berdampak pada peningkatan frekuensi dan volume banjir di hilir.')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/perkebunan_bogor_1895.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Perkebunan di Bogor (1895)</p></div></div>
-            </div>
-            <div class="gallery-item group cursor-pointer" data-category="dokumen" onclick="openModal('assets/images/prasasti_tugu_500.png', 'Prasasti Tugu (Abad ke-5)', 'Prasasti ini adalah bukti arkeologis tertua tentang rekayasa air di wilayah Jakarta, mencatat pembangunan kanal oleh Raja Purnawarman')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/prasasti_tugu_500.png" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Prasasti Tugu (Abad ke-5)</p></div></div>
-            </div>
-            <div class="gallery-item group cursor-pointer" data-category="dokumen" onclick="openModal('assets/images/van_breen_1919.jpeg', 'Rencana van Breen (1919)', 'Potongan dari masterplan yang dirancang oleh Prof. van Breen, termasuk rencana pembangunan Kanal Banjir Barat.')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/van_breen_1919.jpeg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Rencana van Breen (1919)</p></div></div>
-            </div>
-            <div class="gallery-item group cursor-pointer" data-category="kehidupan" onclick="openModal('assets/images/weltevreden_1895.jpg', 'Weltevreden (1895)', 'Pemandangan area Weltevreden, pusat pemerintahan baru yang dibangun di area yang lebih tinggi untuk menghindari wabah penyakit di kota tua.')">
-                <div class="relative overflow-hidden rounded-lg"><img src="assets/images/weltevreden_1895.jpg" class="w-full h-full object-cover"><div class="overlay absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4"><p class="text-white text-center font-semibold">Weltevreden (1895)</p></div></div>
-            </div>
-
-        </div>
-    </main>
-
-    <!-- Modal -->
+    <!-- Modal untuk menampilkan detail gambar dan informasi -->
     <div id="imageModal" class="modal fixed inset-0 bg-black bg-opacity-80 z-50 items-center justify-center p-4">
         <div class="modal-content bg-slate-800 rounded-lg shadow-2xl max-w-4xl w-full max-h-full overflow-auto flex flex-col md:flex-row">
             <img id="modalImage" src="" alt="Gambar Detail" class="w-full md:w-2/3 h-auto object-contain bg-black">
             <div class="p-6 flex flex-col">
-                <h3 id="modalTitle" class="story-font text-3xl text-blue-300 mb-2"></h3>
+                <h3 id="modalTitle" class="story-font text-3xl text-green-300 mb-2"></h3>
                 <p id="modalDescription" class="text-gray-300 leading-relaxed flex-grow"></p>
                 <button onclick="closeModal()" class="mt-4 self-start md:self-end bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-6 rounded-lg transition">Tutup</button>
             </div>
@@ -136,55 +152,144 @@
         <button onclick="closeModal()" class="absolute top-4 right-4 text-white text-4xl">&times;</button>
     </div>
 
+    <!-- Memuat library Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
     <script>
-        const modal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalDescription = document.getElementById('modalDescription');
+        // Variabel global untuk menyimpan layer GeoJSON yang sedang aktif
+        let currentWisdomLayer = null;
+        let map; // Jadikan map variabel global
 
-        function openModal(imageSrc, title, description) {
-            modalImage.src = imageSrc;
-            modalTitle.textContent = title;
-            modalDescription.textContent = description;
-            modal.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            modal.classList.remove('open');
-            document.body.style.overflow = 'auto';
-        }
-
-        modal.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                closeModal();
+        // Fungsi untuk memuat dan menampilkan GeoJSON ke peta
+        function loadWisdomGeoJSON(url) {
+            if (currentWisdomLayer) {
+                map.removeLayer(currentWisdomLayer);
             }
-        });
-
-        // --- Filter Logic ---
-        const filterContainer = document.getElementById('filter-container');
-        const galleryItems = document.querySelectorAll('.gallery-item');
-
-        function filterGallery(category) {
-            // Update active button
-            const buttons = filterContainer.querySelectorAll('.filter-btn');
-            buttons.forEach(button => {
-                button.classList.remove('active');
-                if(button.getAttribute('onclick') === `filterGallery('${category}')`) {
-                    button.classList.add('active');
-                }
-            });
-
-            // Filter items
-            galleryItems.forEach(item => {
-                const itemCategory = item.getAttribute('data-category');
-                if (category === 'all' || itemCategory === category) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    currentWisdomLayer = L.geoJSON(data, {
+                        style: {
+                            color: "#f59e0b",
+                            weight: 3,
+                            opacity: 0.8
+                        }
+                    }).addTo(map);
+                    map.fitBounds(currentWisdomLayer.getBounds());
+                })
+                .catch(error => console.error('Gagal memuat GeoJSON:', error));
         }
+
+        // Fungsi untuk membuka modal
+        function openModal(imageSrc, title, description) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDescription').textContent = description;
+            document.getElementById('imageModal').classList.add('open');
+        }
+
+        // Fungsi untuk menutup modal
+        function closeModal() {
+            document.getElementById('imageModal').classList.remove('open');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('imageModal');
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) closeModal();
+            });
+
+            // Inisialisasi Peta
+            map = L.map('map').setView([-2.5489, 118.0149], 5);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; CARTO',
+                maxZoom: 19
+            }).addTo(map);
+
+            // --- Data Kearifan Lokal ---
+            // ID disederhanakan agar sesuai nama file dasar
+            const wisdomPoints = [
+
+                {
+                    id: 'cilincing',
+                    lat: -6.120,
+                    lng: 106.942,
+                    image: './code/assets/images/wisdom/cilincing_wisdom.jpg',
+                    geojsonUrl: './code/assets/data/wisdom/cilincing_wisdom.geojson',
+                    title: 'Kearifan Nelayan Cilincing',
+                    description: 'Adaptasi komunitas nelayan di Cilincing terhadap dinamika pesisir, termasuk pola melaut berdasarkan musim dan pengelolaan sumber daya laut secara tradisional untuk keberlanjutan.'
+                },
+                {
+                    id: 'penjaringan',
+                    lat: -6.115,
+                    lng: 106.795,
+                    image: './code/assets/images/wisdom/penjaringan_wisdom.jpg',
+                    geojsonUrl: './code/assets/data/wisdom/penjaringan_wisdom.geojson',
+                    title: 'Permukiman Tepi Laut Penjaringan',
+                    description: 'Pola permukiman historis di Penjaringan yang beradaptasi dengan pasang surut air laut, seperti penggunaan rumah panggung dan jalur air sebagai sarana transportasi utama.'
+                },
+                {
+                    id: 'priok',
+                    lat: -6.108,
+                    lng: 106.884,
+                    image: './code/assets/images/wisdom/priok_wisdom.jpeg',
+                    geojsonUrl: './code/assets/data/wisdom/priok_wisdom.geojson',
+                    title: 'Jejak Maritim Tanjung Priok',
+                    description: 'Sebagai pelabuhan bersejarah, Tanjung Priok menyimpan kearifan dalam navigasi laut tradisional dan pengetahuan tentang arus serta cuaca yang diwariskan turun-temurun oleh para pelaut.'
+                }
+            ];
+
+            const galleryList = document.getElementById('gallery-list');
+            const markers = {};
+
+            wisdomPoints.forEach(point => {
+                const card = document.createElement('div');
+                card.className = 'gallery-card p-4 cursor-pointer';
+                card.id = `card-${point.id}`;
+                card.innerHTML = `
+                    <img src="${point.image}" alt="${point.title}" class="w-full h-40 object-cover rounded-md mb-3" onerror="this.src='https://placehold.co/300x200/1e293b/94a3b8?text=Image+Not+Found'">
+                    <h3 class="font-bold text-lg text-green-300">${point.title}</h3>
+                    <p class="text-sm text-slate-400">${point.description.substring(0, 100)}...</p>
+                `;
+                galleryList.appendChild(card);
+
+                const customIcon = L.divIcon({ className: 'custom-marker-icon', iconSize: [20, 20] });
+                const marker = L.marker([point.lat, point.lng], { icon: customIcon }).addTo(map);
+                markers[point.id] = marker;
+
+                card.addEventListener('click', () => {
+                    map.flyTo([point.lat, point.lng], 13);
+                    highlightActive(point.id);
+                    if (point.geojsonUrl) loadWisdomGeoJSON(point.geojsonUrl);
+                });
+
+                marker.on('click', () => {
+                    openModal(point.image, point.title, point.description);
+                    highlightActive(point.id);
+                    card.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+                    if (point.geojsonUrl) loadWisdomGeoJSON(point.geojsonUrl);
+                });
+            });
+
+            function highlightActive(id) {
+                document.querySelectorAll('.gallery-card').forEach(c => c.classList.remove('active'));
+                document.getElementById(`card-${id}`).classList.add('active');
+                Object.values(markers).forEach(m => m.getElement().classList.remove('active'));
+                markers[id].getElement().classList.add('active');
+            }
+
+            const galleryPanel = document.getElementById('gallery-panel');
+            const galleryToggle = document.getElementById('gallery-toggle');
+            const toggleIconWrapper = document.getElementById('toggle-icon-wrapper');
+
+            galleryToggle.addEventListener('click', () => {
+                galleryPanel.classList.toggle('hidden');
+                toggleIconWrapper.classList.toggle('rotate-180');
+            });
+        });
     </script>
 </body>
 </html>
