@@ -72,4 +72,21 @@ export const layerConfig = {
     flood2018: { url: 'assets/data/flood/2018_flood.geojson', style: { fillColor: "#b91c1c", color: "#b91c1c", weight: 1, fillOpacity: 0.4 } },
     flood2020: { url: 'assets/data/flood/2020_flood.geojson', style: { fillColor: "#991b1b", color: "#991b1b", weight: 1, fillOpacity: 0.4 } },
     flood2024: { url: 'assets/data/flood/2024_flood.geojson', style: { fillColor: "#7f1d1d", color: "#7f1d1d", weight: 1, fillOpacity: 0.4 } }
+    // Layer Hidrologi (Hydrology)
+    waduk1960: {
+        url: 'assets/data/hidrology/1960_waduk.geojson',
+        style: { fillColor: "#3b82f6", color: "#60a5fa", weight: 1, fillOpacity: 0.5 } // Biru untuk waduk
+    },
+
+    // Layer Intervensi Warga (Citizen Intervention)
+    intervensi: {
+        url: 'assets/data/1952_intervensi_warga.geojson',
+        style: { color: "#22c55e", weight: 2, opacity: 0.9 } // Hijau untuk intervensi
+    },
+
+    // Layer Administratif (Administrative)
+    weltevreden: {
+        url: 'assets/data/adm/weltevreden.geojson',
+        style: { fillColor: "#9ca3af", color: "#4b5563", weight: 2, fillOpacity: 0.1, dashArray: '5, 5' } // Abu-abu dengan garis putus-putus
+    }
 };
