@@ -71,7 +71,8 @@ export const layerConfig = {
     flood1932: { url: 'assets/data/flood/1932_flood.geojson', style: { fillColor: "#dc2626", color: "#dc2626", weight: 1, fillOpacity: 0.4 } },
     flood2018: { url: 'assets/data/flood/2018_flood.geojson', style: { fillColor: "#b91c1c", color: "#b91c1c", weight: 1, fillOpacity: 0.4 } },
     flood2020: { url: 'assets/data/flood/2020_flood.geojson', style: { fillColor: "#991b1b", color: "#991b1b", weight: 1, fillOpacity: 0.4 } },
-    flood2024: { url: 'assets/data/flood/2024_flood.geojson', style: { fillColor: "#7f1d1d", color: "#7f1d1d", weight: 1, fillOpacity: 0.4 } }
+    flood2024: { url: 'assets/data/flood/2024_flood.geojson', style: { fillColor: "#7f1d1d", color: "#7f1d1d", weight: 1, fillOpacity: 0.4 } },
+
     // Layer Hidrologi (Hydrology)
     waduk1960: {
         url: 'assets/data/hidrology/1960_waduk.geojson',
