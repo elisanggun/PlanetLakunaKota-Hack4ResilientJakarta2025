@@ -16,27 +16,29 @@ export const timelineEvents = {
     2: [
         { year: "1854", key: "event_2_0_desc", imageUrl: "https://placehold.co/80x80/1e40af/FFF?text=Kanal", zoomToLayer: "canal1700" },
         { year: "1878", key: "event_2_1_desc", imageUrl: "https://placehold.co/80x80/1e40af/FFF?text=Lumpur", location: { coords: [-6.797, 106.772], zoom: 10 } },
-        { year: "1893", key: "event_2_2_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } },
-        { year: "1909", key: "event_2_3_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", zoomToLayer: "canal1797" },
-        { year: "1919", key: "event_2_4_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } },
-        { year: "1932", key: "event_2_5_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } }
+        { year: "1878", key: "event_2_2_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } },
+        { year: "1892", key: "event_2_3_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", zoomToLayer: "canal1797" },
+        { year: "1893", key: "event_2_4_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } },
+        { year: "1909", key: "event_2_5_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } },
+        { year: "1919", key: "event_2_6_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } },
+        { year: "1932", key: "event_2_7_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } }
     ],
     3: [
-        { year: "1854", key: "event_3_0_desc", imageUrl: "https://placehold.co/80x80/3b82f6/FFF?text=Pelabuhan", location: { coords: [-6.107, 106.883], zoom: 14 } },
-        { year: "1878", key: "event_3_1_desc", imageUrl: "https://placehold.co/80x80/3b82f6/FFF?text=Masterplan", location: { coords: [-6.182, 106.800], zoom: 13 } }
+        { year: "1949", key: "event_3_0_desc", imageUrl: "https://placehold.co/80x80/3b82f6/FFF?text=Pelabuhan", location: { coords: [-6.107, 106.883], zoom: 14 } },
+        { year: "1952", key: "event_3_1_desc", imageUrl: "https://placehold.co/80x80/3b82f6/FFF?text=Masterplan", location: { coords: [-6.182, 106.800], zoom: 13 } }
+        { year: "1953", key: "event_3_2_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } },
+        { year: "1956", key: "event_3_3_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } },
+
     ],
     4: [
-        { year: "1949", key: "event_4_0_desc", imageUrl: "https://placehold.co/80x80/60a5fa/FFF?text=Banjir" },
-        { year: "1952", key: "event_4_1_desc", imageUrl: "https://placehold.co/80x80/60a5fa/FFF?text=Waduk", location: { coords: [-6.115, 106.795], zoom: 15 } },
-        { year: "1953", key: "event_4_2_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } },
-        { year: "1956", key: "event_4_3_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } }
+        { year: "1960", key: "event_4_0_desc", imageUrl: "https://placehold.co/80x80/60a5fa/FFF?text=Banjir" },
+        { year: "1963", key: "event_4_1_desc", imageUrl: "https://placehold.co/80x80/60a5fa/FFF?text=Waduk", location: { coords: [-6.115, 106.795], zoom: 15 } },
+        { year: "1970-1985", key: "event_4_2_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } },
+        { year: "1983", key: "event_4_3_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } }
     ],
     5: [
-        { year: "1960", key: "event_5_0_desc", imageUrl: "https://placehold.co/80x80/93c5fd/FFF?text=Banjir+2007" },
-        { year: "1963", key: "event_5_1_desc", imageUrl: "https://placehold.co/80x80/93c5fd/FFF?text=JEDI" },
-        { year: "1970-1985", key: "event_5_2_desc", imageUrl: "https://placehold.co/80x80/93c5fd/FFF?text=Tanggul", location: { coords: [-6.09, 106.8], zoom: 12 } },
-        { year: "1983", key: "event_5_3_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } }
-    ]
+        { year: "2024", key: "event_5_0_desc", imageUrl: "https://placehold.co/80x80/93c5fd/FFF?text=Banjir+2007" },
+           ]
 };
 
 // Konfigurasi layer
