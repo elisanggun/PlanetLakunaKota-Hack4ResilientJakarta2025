@@ -25,9 +25,9 @@ export const timelineEvents = {
     ],
     3: [
         { year: "1949", key: "event_3_0_desc", imageUrl: "https://placehold.co/80x80/3b82f6/FFF?text=Pelabuhan", location: { coords: [-6.107, 106.883], zoom: 14 } },
-        { year: "1952", key: "event_3_1_desc", imageUrl: "https://placehold.co/80x80/3b82f6/FFF?text=Masterplan", location: { coords: [-6.182, 106.800], zoom: 13 } }
+        { year: "1952", key: "event_3_1_desc", imageUrl: "https://placehold.co/80x80/3b82f6/FFF?text=Masterplan", location: { coords: [-6.182, 106.800], zoom: 13 } },
         { year: "1953", key: "event_3_2_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } },
-        { year: "1956", key: "event_3_3_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } },
+        { year: "1956", key: "event_3_3_desc", imageUrl: "https://placehold.co/80x80/0f172a/FFF?text=Pelabuhan", location: { coords: [-6.133, 106.814], zoom: 14 } }
 
     ],
     4: [
