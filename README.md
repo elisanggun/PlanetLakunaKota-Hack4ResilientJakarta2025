@@ -6,17 +6,17 @@ An interactive dashboard to understand the history of flooding in Jakarta throug
 
 ---
 
-## 🚀 Live Demo
+## Live Demo
 
 **Check out the live version here:** [**jakartaswaterstories.github.io**](https://elisanggun.github.io/PlanetLakunaKota-Hack4ResilientJakarta2025/)
 
 ---
 
-## 🧐 About the Project
+## About the Project
 
 The **Jakarta's Water Stories** project aims to provide a visual narrative of how Jakarta’s evolution—from the pre-colonial period to becoming a modern megacity—has shaped its flood risks. This dashboard does not only display data but also archives local wisdom and collects citizens’ stories to build collective understanding.
 
-### ✨ Key Features
+### Key Features
 
 * **Stories Journey** – interactive narratives on Jakarta’s flood history and its relation to urban development.
 * **Timeline Journey** – visual maps showing changes in Jakarta’s landscape from the 16th century to the present.
@@ -26,7 +26,7 @@ The **Jakarta's Water Stories** project aims to provide a visual narrative of ho
 
 ---
 
-## 🛠️ Built With
+## Built With
 
 This project was built using lightweight, fast, and standard web technologies:
 
@@ -36,7 +36,7 @@ This project was built using lightweight, fast, and standard web technologies:
 
 ---
 
-## 🏁 Getting Started
+## Getting Started
 
 As this project is static, you don’t need a complicated installation. Simply clone this repository and open the main file in your browser.
 
@@ -58,7 +58,7 @@ You only need a modern web browser such as Chrome, Firefox, Safari, or Edge.
 
 ---
 
-## 🗺️ Future Dashboard Development
+## Future Dashboard Development
 
 Here are some ideas for future development:
 
@@ -71,7 +71,7 @@ See the [Issues Page](https://github.com/nama-anda/nama-repositori/issues) for a
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are what make the open source community such a great place to learn, inspire, and create. Any contribution you make is **greatly appreciated.**
 
@@ -85,7 +85,7 @@ If you have suggestions for improvement, please _fork_ the repo and create a _pu
 
 ---
 
-## 👥 Credit
+## Credit
 
 - **Wardatut Toyyibah** – Urban Design & History Research  
 - **Imas Nurrahmah Priandani** – Urban Design & History Research 
@@ -94,7 +94,7 @@ If you have suggestions for improvement, please _fork_ the repo and create a _pu
 
 ---
 
-## 📚 Reference
+## Reference
 
 - Dewi, E. P., Sujatini, S., Suryani, F., & Wijaya, A. (2022). Canals To Streets: Postcolonial Studies On The Urban Transformation Of Colonial Batavia. Engineering Heritage Journal (GWK), 6(1), 25-30.
 - Hiroko, M. (2014). Batavia facing tropical sedimentation: The water management of the Dutch colonial city in the Asian monsoon tectonic zone.
@@ -118,9 +118,10 @@ If you have suggestions for improvement, please _fork_ the repo and create a _pu
 - Shabrina, Z., Muharram, F. W., Dhirgantara Putra, D., Rui, J., & Asa, M. (2025). Hack4Resilient Jakarta 2025: Sinking City [Data set]. Zenodo. https://doi.org/10.5281/zenodo.16836145
 ---
 
-## 📧 Contact
+## Contact
 
 **Planet - Lakuna Kota Team** - [lakunakota@gmail.com]
 
 Project Link: [https://github.com/elisanggun/PlanetLakunaKota-Hack4ResilientJakarta2025]
+
 
